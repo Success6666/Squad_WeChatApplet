@@ -1,0 +1,34 @@
+<view class="page">
+  <view class="header"><view class="title">暖服命令</view></view>
+  <view class="title-divider-thin"></view>
+  <view class="card">
+    <view class="list">
+      <block wx:for="{{options}}" wx:for-item="opt" wx:for-index="i" wx:key="i">
+        <view class="option-row">
+          <view class="option-label">{{opt.label}}</view>
+          <switch class="option-switch" checked="{{opt.on}}" data-index="{{i}}" bindchange="onToggle"/>
+        </view>
+      </block>
+    </view>
+    <view class="actions">
+      <button class="btn primary full" bindtap="confirmApplyWarmup">一键设置暖服</button>
+    </view>
+  </view>
+
+  <!-- confirmation modal -->
+  <block wx:if="{{confirmVisible}}">
+    <view class="modal-mask"></view>
+    <view class="confirm-modal">
+      <view class="modal-title">确认发送以下暖服指令？</view>
+      <view class="modal-body">
+        <block wx:for="{{confirmCommands}}" wx:for-item="c" wx:for-index="ci" wx:key="ci">
+          <view class="cmd-row">{{c}}</view>
+        </block>
+      </view>
+      <view class="modal-actions">
+        <button class="btn secondary" bindtap="cancelConfirm">取消</button>
+        <button class="btn primary" bindtap="applyWarmup">发送</button>
+      </view>
+    </view>
+  </block>
+</view>

@@ -1,0 +1,13 @@
+<view class="team-item" bindtap="onTap">
+  <!-- Logo Left -->
+  <image class="logo" mode="aspectFill" src="{{team.logoUrl || defaultLogo}}" />
+
+  <!-- Info Middle -->
+  <view class="col">
+    <view class="title" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">{{team.name}}</view>
+    <view class="subtitle" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;" wx:if="{{team.desc}}">{{team.desc}}</view>
+  </view>
+
+  <!-- Count Right -->
+  <view class="badge badge--brand" style="flex-shrink: 0; margin-left: 16rpx;">{{team.memberCount || 0}} 成员</view>
+</view>

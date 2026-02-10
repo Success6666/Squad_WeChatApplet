@@ -1,0 +1,238 @@
+const api = require('../../../utils/server-api')
+
+// 本地地图数据 完整版（无删减 全部数据）
+const LOCAL_MAP_DATA = {
+  "update_version": "Squad V8.2 本地回退版",
+  "maps": [
+    { "map_en": "Yehorivka", "map_cn": "叶霍里夫卡" },
+    { "map_en": "Anvil", "map_cn": "铁砧行动" },
+    { "map_en": "AlBasrah", "map_cn": "巴士拉" },
+    { "map_en": "Tallil", "map_cn": "塔利尔郊区" },
+    { "map_en": "Sumari", "map_cn": "苏玛瑞" },
+    { "map_en": "Skorpo", "map_cn": "斯科普" },
+    { "map_en": "Sanxian", "map_cn": "三贤岛" },
+    { "map_en": "Narva", "map_cn": "纳尔瓦" },
+    { "map_en": "Mutaha", "map_cn": "木塔哈" },
+    { "map_en": "Mestia", "map_cn": "梅斯提亚" },
+    { "map_en": "Manicouagan", "map_cn": "曼尼古根" },
+    { "map_en": "Logar", "map_cn": "洛加尔山谷" },
+    { "map_en": "Lashkar", "map_cn": "拉什喀" },
+    { "map_en": "Kokan", "map_cn": "寇坎" },
+    { "map_en": "Kohat", "map_cn": "科哈特" },
+    { "map_en": "Kamdesh", "map_cn": "卡姆德什高地" },
+    { "map_en": "Harju", "map_cn": "哈留" },
+    { "map_en": "Gorodok", "map_cn": "格洛多克" },
+    { "map_en": "GooseBay", "map_cn": "鹅湾" },
+    { "map_en": "FoolsRoad", "map_cn": "愚者之路" },
+    { "map_en": "Fallujah", "map_cn": "费卢杰" },
+    { "map_en": "Chora", "map_cn": "乔拉" },
+    { "map_en": "BlackCoast", "map_cn": "黑色海岸" },
+    { "map_en": "Belaya", "map_cn": "贝拉亚关隘" }
+  ],
+  "all_layers": {
+    "AlBasrah": ["AlBasrah_AAS_v1", "AlBasrah_Insurgency_v1", "AlBasrah_Invasion_v1", "AlBasrah_Invasion_v2", "AlBasrah_RAAS_v1", "AlBasrah_Seed_v1", "AlBasrah_Skirmish_v1", "AlBasrah_Skirmish_v2", "AlBasrah_TC_v1"],
+    "Anvil": ["Anvil_AAS_v1", "Anvil_Invasion_v1", "Anvil_RAAS_v1", "Anvil_RAAS_v2", "Anvil_Skirmish_v1", "Anvil_TC_v1"],
+    "Belaya": ["Belaya_AAS_v1", "Belaya_AAS_v2", "Belaya_AAS_v3", "Belaya_Invasion_v1", "Belaya_Invasion_v2", "Belaya_RAAS_v1", "Belaya_Skirmish_v1", "Belaya_TC_v1"],
+    "BlackCoast": ["BlackCoast_AAS_v1", "BlackCoast_AAS_v2", "BlackCoast_Invasion_v1", "BlackCoast_RAAS_v1", "BlackCoast_RAAS_v2", "BlackCoast_Seed_v1", "BlackCoast_Seed_v2", "BlackCoast_Skirmish_v1"],
+    "Chora": ["Chora_AAS_v1", "Chora_AAS_v2", "Chora_AAS_v3", "Chora_Insurgency_v1", "Chora_Invasion_v1", "Chora_Invasion_v2", "Chora_RAAS_v1", "Chora_Skirmish_v1", "Chora_TC_v1"],
+    "Fallujah": ["Fallujah_AAS_v1", "Fallujah_Insurgency_v1", "Fallujah_Invasion_v1", "Fallujah_Invasion_v2", "Fallujah_RAAS_v1", "Fallujah_RAAS_v2", "Fallujah_Seed_v1", "Fallujah_Skirmish_v1", "Fallujah_Skirmish_v2", "Fallujah_TC_v1"],
+    "FoolsRoad": ["FoolsRoad_AAS_v1", "FoolsRoad_AAS_v2", "FoolsRoad_Destruction_v1", "FoolsRoad_Invasion_v1", "FoolsRoad_RAAS_v1", "FoolsRoad_RAAS_v2", "FoolsRoad_RAAS_v3", "FoolsRoad_Skirmish_v1", "FoolsRoad_Skirmish_v2", "FoolsRoad_TC_v1"],
+    "GooseBay": ["GooseBay_AAS_v1", "GooseBay_Invasion_v1", "GooseBay_RAAS_v1", "GooseBay_RAAS_v2", "GooseBay_Seed_v1", "GooseBay_Skirmish_v1"],
+    "Gorodok": ["Gorodok_AAS_v1", "Gorodok_Destruction_v1", "Gorodok_Insurgency_v1", "Gorodok_Invasion_v1", "Gorodok_Invasion_v2", "Gorodok_RAAS_v1", "Gorodok_RAAS_v2", "Gorodok_Skirmish_v1", "Gorodok_TC_v1"],
+    "Harju": ["Harju_AAS_v1", "Harju_AAS_v2", "Harju_AAS_v3", "Harju_Invasion_v1", "Harju_Invasion_v2", "Harju_Invasion_v3", "Harju_RAAS_v1", "Harju_RAAS_v2", "Harju_TC_v1", "Harju_Seed_v1", "Harju_Skirmish_v1", "Harju_Skirmish_v2"],
+    "Kamdesh": ["Kamdesh_AAS_v1", "Kamdesh_Insurgency_v1", "Kamdesh_Invasion_v1", "Kamdesh_RAAS_v1", "Kamdesh_Skirmish_v1", "Kamdesh_TC_v1"],
+    "Kohat": ["Kohat_AAS_v1", "Kohat_RAAS_v1", "Kohat_Skirmish_v1", "Kohat_Insurgency_v1", "Kohat_Invasion_v1", "Kohat_TC_v1"],
+    "Kokan": ["Kokan_AAS_v1", "Kokan_AAS_v2", "Kokan_Insurgency_v1", "Kokan_Invasion_v1", "Kokan_RAAS_v1", "Kokan_RAAS_v2", "Kokan_Skirmish_v1", "Kokan_TC_v1"],
+    "Lashkar": ["Lashkar_AAS_v1", "Lashkar_AAS_v2", "Lashkar_Insurgency_v1", "Lashkar_Invasion_v1", "Lashkar_RAAS_v1", "Lashkar_Skirmish_v1", "Lashkar_TC_v1", "Lashkar_TC_v2"],
+    "Logar": ["Logar_AAS_v1", "Logar_Insurgency_v1", "Logar_RAAS_v1", "Logar_Seed_v1", "Logar_Skirmish_v1", "Logar_TC_v1"],
+    "Manicouagan": ["Manicouagan_AAS_v1", "Manicouagan_AAS_v2", "Manicouagan_AAS_v3", "Manicouagan_RAAS_v1", "Manicouagan_RAAS_v2", "Manicouagan_Invasion_v1", "Manicouagan_Seed_v1", "Manicouagan_Skirmish_v1", "Manicouagan_Skirmish_v2", "Manicouagan_Skirmish_v3"],
+    "Mestia": ["Mestia_AAS_v1", "Mestia_AAS_v2", "Mestia_Invasion_v1", "Mestia_RAAS_v1", "Mestia_Skirmish_v1", "Mestia_TC_v1"],
+    "Mutaha": ["Mutaha_AAS_v1", "Mutaha_AAS_v2", "Mutaha_Invasion_v1", "Mutaha_RAAS_v1", "Mutaha_RAAS_v2", "Mutaha_Seed_v1", "Mutaha_Skirmish_v1", "Mutaha_TC_v1"],
+    "Narva": ["Narva_AAS_v1", "Narva_AAS_v2", "Narva_AAS_v3", "Narva_Destruction_v1", "Narva_Invasion_v1", "Narva_Invasion_v2", "Narva_RAAS_v1", "Narva_Skirmish_v1", "Narva_TC_v1"],
+    "Skorpo": ["Skorpo_Invasion_v1", "Skorpo_Invasion_v2", "Skorpo_RAAS_v1", "Skorpo_Skirmish_v1"],
+    "Sanxian": ["Sanxian_AAS_v1", "Sanxian_AAS_v2", "Sanxian_AAS_v3", "Sanxian_Invasion_v1", "Sanxian_Invasion_v2", "Sanxian_RAAS_v1", "Sanxian_RAAS_v2", "Sanxian_Seed_v1", "Sanxian_Skirmish_v1"],
+    "Sumari": ["Sumari_AAS_v1", "Sumari_AAS_v2", "Sumari_AAS_v3", "Sumari_Insurgency_v1", "Sumari_Invasion_v1", "Sumari_RAAS_v1", "Sumari_Seed_v1", "Sumari_Skirmish_v1", "Sumari_TC_v1"],
+    "Tallil": ["Tallil_AAS_v1", "Tallil_Invasion_v1", "Tallil_RAAS_v1", "Tallil_RAAS_v2", "Tallil_Seed_v1", "Tallil_Skirmish_v1", "Tallil_Skirmish_v2", "Tallil_Skirmish_v3", "Tallil_TC_v1"],
+    "Yehorivka": ["Yehorivka_AAS_v1", "Yehorivka_AAS_v2", "Yehorivka_Destruction_v1", "Yehorivka_Invasion_v1", "Yehorivka_Invasion_v2", "Yehorivka_Skirmish_v1", "Yehorivka_Skirmish_v2", "Yehorivka_RAAS_v1", "Yehorivka_RAAS_v2", "Yehorivka_TC_v1", "Yehorivka_TC_v2"]
+  },
+  "factions": [
+    {"faction_en": "USA", "faction_cn": "蓝军派系 - 美国陆军"},
+    {"faction_en": "USMC", "faction_cn": "蓝军派系 - 美国海军陆战队"},
+    {"faction_en": "ADF", "faction_cn": "蓝军派系 - 澳大利亚军队"},
+    {"faction_en": "BAF", "faction_cn": "蓝军派系 - 英国军队"},
+    {"faction_en": "CAF", "faction_cn": "蓝军派系 - 加拿大军队"},
+    {"faction_en": "PLA", "faction_cn": "泛亚联盟 - 中国人民解放军"},
+    {"faction_en": "PLAAGF", "faction_cn": "泛亚联盟 - 中国人民解放军陆军"},
+    {"faction_en": "PLANMC", "faction_cn": "泛亚联盟 - 中国人民解放军海军陆战队"},
+    {"faction_en": "RGF", "faction_cn": "红军派系 - 俄罗斯陆军"},
+    {"faction_en": "VDV", "faction_cn": "红军派系 - 俄罗斯空降部队"},
+    {"faction_en": "WPMC", "faction_cn": "独立派系 - 西方私营军事承包商"},
+    {"faction_en": "IMF", "faction_cn": "独立派系 - 民兵武装"},
+    {"faction_en": "INS", "faction_cn": "独立派系 - 叛军武装"},
+    {"faction_en": "MEA", "faction_cn": "独立派系 - 中东联军"},
+    {"faction_en": "TLF", "faction_cn": "独立派系 - 土耳其陆军"}
+  ],
+  "unit_types": [
+    {"unit_en": "CombinedArms", "unit_cn": "合成部队", "desc": "综合性最强的单位，平衡步兵与载具体验的阵营。"},
+    {"unit_en": "Armored", "unit_cn": "装甲部队", "desc": "开局至少两台坦克，无直升机，多为履式补给车，火力强劲，后勤困难，应对大图的战斗较为疲惫。"},
+    {"unit_en": "Mechanized", "unit_cn": "机械化部队", "desc": "履式战车、履式补给车为主，提供一架直升机，火力较强，后勤较困难，应对大图的战斗较为疲惫。"},
+    {"unit_en": "Motorized", "unit_cn": "摩托化部队", "desc": "轮式载具及步战车较多，队伍机动性强，火力适中。"},
+    {"unit_en": "AmphibiousAssault", "unit_cn": "两栖部队", "desc": "能在水陆两栖作战的部队，没什么特点，且较多编制不存在此单位。"},
+    {"unit_en": "AirAssault", "unit_cn": "空降部队", "desc": "开局提供三架直升机，轻型车辆为主，机动能力强，提供更多的固定式武器。"},
+    {"unit_en": "LightInfantry", "unit_cn": "轻型步兵", "desc": "载具力量弱，轻型车辆为主，提供更多的固定式武器和步兵重火力，部分存在特殊武器。"},
+    {"unit_en": "Support", "unit_cn": "支援部队", "desc": "以轻型车辆为主，提供更多兵站和步兵重火力，部分提供重型迫击炮。"}
+  ]
+}
+
+Page({
+  data: {
+    serverId: null,
+    maps: [],
+    layers: [],
+    factions: [],
+    unit_types: [],
+    selectedMapIndex: 0,
+    selectedLayerIndex: 0,
+    selectedFaction1Index: 0,
+    selectedUnit1Index: 0,
+    selectedFaction2Index: 0,
+    selectedUnit2Index: 0,
+    commandPreview: '',
+    selectedMapText: '正在使用本地数据',
+    actionType: 'setNext'
+  },
+
+  onLoad(options) {
+    this.serverId = options?.serverId
+    this.initLocalData()
+  },
+
+  // 初始化本地数据
+  initLocalData() {
+    const d = LOCAL_MAP_DATA
+    this.setData({
+      maps: d.maps,
+      factions: d.factions,
+      unit_types: d.unit_types,
+      layers: d.all_layers[d.maps[0].map_en],
+      selectedMapText: d.maps[0].map_cn
+    }, () => {
+      this.generateCommand()
+    })
+  },
+
+  // 选择地图切换
+  onMapChange(e) {
+    const idx = Number(e.detail.value)
+    const selectedMap = this.data.maps[idx]
+    this.setData({
+      selectedMapIndex: idx,
+      layers: LOCAL_MAP_DATA.all_layers[selectedMap.map_en],
+      selectedLayerIndex: 0,
+      selectedMapText: selectedMap.map_cn
+    }, () => {
+      this.generateCommand()
+    })
+  },
+
+  // 选择地图模式切换
+  onLayerChange(e) {
+    this.setData({ selectedLayerIndex: Number(e.detail.value) }, () => {
+      this.generateCommand()
+    })
+  },
+
+  // 阵营1切换
+  onFaction1Change(e) {
+    this.setData({ selectedFaction1Index: Number(e.detail.value) }, () => {
+      this.generateCommand()
+    })
+  },
+
+  // 阵营1单位切换
+  onUnit1Change(e) {
+    this.setData({ selectedUnit1Index: Number(e.detail.value) }, () => {
+      this.generateCommand()
+    })
+  },
+
+  // 阵营2切换
+  onFaction2Change(e) {
+    this.setData({ selectedFaction2Index: Number(e.detail.value) }, () => {
+      this.generateCommand()
+    })
+  },
+
+  // 阵营2单位切换
+  onUnit2Change(e) {
+    this.setData({ selectedUnit2Index: Number(e.detail.value) }, () => {
+      this.generateCommand()
+    })
+  },
+
+  // 切换指令类型 预设/立即切换 (核心修复 点击必更)
+  changeActionType(e) {
+    const type = e.currentTarget.dataset.type
+    this.setData({ actionType: type }, () => {
+      this.generateCommand()
+    })
+  },
+
+  // 核心方法 - 生成预览指令 所有变更都触发这个方法
+  generateCommand() {
+    const {
+      layers, selectedLayerIndex,
+      factions, selectedFaction1Index, selectedFaction2Index,
+      unit_types, selectedUnit1Index, selectedUnit2Index,
+      actionType
+    } = this.data
+
+    const layer = layers[selectedLayerIndex]
+    const f1 = factions[selectedFaction1Index].faction_en
+    const u1 = unit_types[selectedUnit1Index].unit_en
+    const f2 = factions[selectedFaction2Index].faction_en
+    const u2 = unit_types[selectedUnit2Index].unit_en
+
+    // 根据选中按钮 切换指令前缀
+    const cmdPrefix = actionType === 'setNext' ? 'AdminSetNextLayer' : 'AdminChangeLayer'
+    const command = `${cmdPrefix} ${layer} ${f1}+${u1} ${f2}+${u2}`
+
+    this.setData({ commandPreview: command })
+  },
+
+  // 发送指令按钮点击事件
+  sendCommandBtn() {
+    const { commandPreview, actionType } = this.data
+    const title = actionType === 'setNext' ? '确认预设下一局' : '确认立即切换'
+
+    wx.showModal({
+      title: title,
+      content: `确认执行：\n${commandPreview}`,
+      success: (res) => {
+        if (res.confirm) this._sendCommand(commandPreview)
+      }
+    })
+  },
+
+  // 调用接口发送指令
+  async _sendCommand(cmd) {
+    if (!this.serverId) {
+      wx.showToast({ title: '缺少 serverId，无法发送', icon: 'none' })
+      return
+    }
+    wx.showLoading({ title: '发送中...' })
+    try {
+      const res = await api.command(this.serverId, cmd)
+      wx.hideLoading()
+      if (res && res.ok) {
+        wx.showToast({ title: '命令已发送', icon: 'success' })
+      } else {
+        wx.showToast({ title: res && res.message || '发送失败', icon: 'none' })
+      }
+    } catch (e) {
+      wx.hideLoading()
+      console.error('[map-settings] send command error', e)
+      wx.showToast({ title: '发送异常', icon: 'none' })
+    }
+  }
+})

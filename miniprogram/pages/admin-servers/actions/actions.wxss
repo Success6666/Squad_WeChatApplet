@@ -1,0 +1,70 @@
+.page { padding: 18rpx; background:#F7FBFF; min-height:100vh }
+.header{ text-align:center; margin-bottom:12rpx }
+.title{ font-size:32rpx;color:#1677FF;font-weight:600 }
+.card{ background:#fff;padding:18rpx;border-radius:10rpx }
+/* ✅ 核心修复：搜索栏强制同行不换行 + 垂直居中 */
+.search-row { display: inline-flex; gap:8rpx; margin-bottom:18rpx; align-items:center; width:100%; }
+.input { flex:1; height:68rpx !important; font-size:20rpx !important; padding:0 12rpx; box-sizing:border-box }
+
+/* ✅ 核心修复：搜索按钮固定宽度 杜绝换行，其他样式不变 */
+.btn-search {
+  width: 180rpx !important;
+  height: 68rpx !important;
+  align-self:center;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  padding: 0 16rpx !important;
+  border-radius: 8rpx !important;
+  background: #1677FF;
+  color: #fff;
+  border: none;
+  flex: none;
+  font-size: 20rpx;
+  text-align: center;
+}
+
+
+/* 列表基础样式 */
+.list{ max-height: 70vh; }
+.action-item{ padding:18rpx; border-bottom:1rpx solid #eee; margin-bottom:12rpx; border-radius:8rpx;}
+.main-row{ display:flex; align-items:center; justify-content:space-between; gap:12rpx; width:100%;}
+.main-left { display:flex; flex-direction:column; gap:8rpx; min-width:0; flex:1;}
+.main-right { display:flex; gap:10rpx; align-items:center; flex-shrink:0 }
+
+/* 文本字号 合适大小 */
+.time-row{ color:#6B7280; font-size:20rpx; }
+.steam-row { font-family: monospace; font-size:24rpx; font-weight:700; color:#111827; }
+.action-row { font-size:22rpx; color:#374151; line-height: 1.4;}
+
+/* 按钮完美居中+合适大小+一行显示 无偏上 */
+.btn-detail, .btn-manage-audit {
+  height: 60rpx !important;
+  line-height: 60rpx !important;
+  min-width: 120rpx !important;
+  width: 120rpx !important;
+  font-size: 20rpx !important;
+  padding: 0 !important;
+  white-space: nowrap !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  border-radius: 8rpx !important;
+}
+.btn-detail{ background:#ffffff; color:#1677FF; border:1rpx solid #1677FF;}
+.btn-manage-audit { background:#fff7f6; color:#ff3b30; border:1rpx solid #ffd0d0;}
+
+.reason { margin-top:12rpx; color:#374151; font-size:20rpx; padding-left: 2rpx;}
+.cmd{ margin-top:6rpx; font-family:monospace; color:#6B7280; font-size:16rpx; white-space:normal;}
+
+/* modal样式 */
+.modal-mask { position: fixed; left: 0; top: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.4); z-index: 1000 }
+.detail-modal, .manage-modal {
+  position: fixed;
+  left: 50%; top: 50%; transform: translate(-50%, -50%);
+  width: 86%; max-width: 700rpx; background: #fff; border-radius: 10rpx; padding: 24rpx; z-index: 1001; box-shadow: 0 8rpx 24rpx rgba(0,0,0,0.2);
+}
+.detail-modal .modal-title, .manage-modal .modal-title { font-size: 26rpx; font-weight:700; margin-bottom: 18rpx }
+.detail-modal .modal-body, .manage-modal .modal-body { max-height: 60vh; overflow:auto; font-size:18rpx;}
+.detail-row{ margin-bottom:12rpx; line-height:1.6; display:flex; align-items:center; justify-content:space-between; gap:12rpx;}
+.detail-row .muted{ flex:0 0 auto; color:#6B7280; font-size:16rpx;}
+.detail-row text { flex:1 1 auto; text-align:right; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; font-size:16rpx;}

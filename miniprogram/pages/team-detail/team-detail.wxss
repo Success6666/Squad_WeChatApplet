@@ -1,0 +1,150 @@
+/* Reverted to light theme (white background) for team-detail page */
+
+.hero-card {
+  background: #FFFFFF;
+  border: 1px solid #e6e9ef;
+  border-radius: 12rpx;
+  padding: 40rpx;
+}
+
+.hero-title {
+  font-size: 44rpx;
+  font-weight: 700;
+  margin-bottom: 12rpx;
+  color: #111827;
+}
+
+.hero-desc {
+  font-size: 28rpx;
+  color: #6B7280;
+  line-height: 1.5;
+}
+
+.divider {
+  height: 1px;
+  background: #E5E7EB;
+  margin: 32rpx 0;
+}
+
+/* Action grid using Flex but cleaner */
+.action-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24rpx;
+}
+
+.action-grid button {
+  flex: 1 1 45%;
+  min-width: 220rpx;
+}
+
+.status-tip {
+  margin-top: 24rpx;
+  background: #F3F4F6;
+  padding: 12rpx;
+  border-radius: 999rpx; /* Pill */
+  text-align: center;
+  font-size: 24rpx;
+  display: inline-block;
+}
+
+.section-title {
+  font-size: 28rpx;
+  font-weight: 600;
+  margin: 48rpx 0 16rpx;
+  color: #374151;
+  letter-spacing: 1rpx;
+  padding-left: 0;
+  border-left: none; /* Remove side border for standard iOS header look */
+}
+
+.section-header {
+  margin: 48rpx 0 16rpx;
+  align-items: baseline;
+}
+
+.link {
+  font-size: 26rpx;
+  color: #1677FF; /* was var(--primary-bg) */
+}
+
+.member-item {
+  padding: 24rpx 0;
+  border-bottom: 1px solid rgba(0,0,0,0.06); /* 细黑色分隔线 */
+  display: flex;
+  align-items: center;
+  gap: 20rpx;
+}
+
+.member-item:last-child {
+  border-bottom: none;
+}
+
+/* Avatar: circle with first-letter centered */
+.avatar-placeholder {
+  width: 88rpx;
+  height: 88rpx;
+  border-radius: 50%;
+  background: #F3F4F6; /* 首字母头像：白底 */
+  color: #111827; /* 黑色首字母 */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  font-size: 36rpx;
+  border: 1px solid rgba(0,0,0,0.06); /* 细黑边 */
+  flex: none;
+}
+
+.member-info {
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 6rpx;
+}
+
+.member-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12rpx;
+}
+
+.member-name {
+  font-size: 30rpx;
+  color: #111827;
+  font-weight: 600;
+}
+
+.member-meta {
+  font-size: 24rpx;
+  color: #6B7280;
+}
+
+/* Admin Actions row */
+.admin-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 16rpx;
+  margin-top: 16rpx;
+  align-items: center;
+  margin-left: auto; /* force to the far right of the parent row */
+  flex-shrink: 0;    /* prevent it from shrinking */
+}
+
+/* Ensure action buttons don't overflow and have consistent height */
+.admin-actions .btn {
+  height: 56rpx;
+  line-height: 56rpx;
+  padding: 0 18rpx;
+  border-radius: 8rpx;
+  font-size: 26rpx;
+  white-space: nowrap; /* prevent text wrap */
+}
+
+/* Small responsive adjustments */
+@media (max-width: 420px) {
+  .avatar-placeholder { width: 72rpx; height: 72rpx; font-size: 30rpx }
+  .member-name { font-size: 28rpx }
+  .admin-actions .btn { height: 52rpx; font-size: 24rpx }
+}

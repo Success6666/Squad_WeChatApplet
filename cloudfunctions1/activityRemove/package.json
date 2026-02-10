@@ -1,0 +1,10 @@
+{
+  "name": "activityRemove",
+  "version": "1.0.0",
+  "description": "Remove activity (admin only)",
+  "main": "index.js",
+  "dependencies": {
+    "wx-server-sdk": "latest"
+  }
+}
+

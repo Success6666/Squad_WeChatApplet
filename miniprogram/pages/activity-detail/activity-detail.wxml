@@ -1,0 +1,65 @@
+<view class="page">
+  <view wx:if="{{loading}}" class="empty">加载中...</view>
+
+  <view wx:elif="{{activity}}" class="activity-detail">
+    <view class="card">
+      <view class="header">
+        <view class="title" style="font-size: 40rpx; line-height: 1.25;">{{activity.title}}</view>
+        <view class="row" style="gap: 12rpx; flex-wrap: wrap; margin-top: 18rpx;">
+          <view class="badge badge--brand">{{typeText}}</view>
+          <view class="badge">开始：{{startText}}</view>
+          <view class="badge" wx:if="{{activity.signupDeadline}}">截止：{{deadlineText}}</view>
+          <view class="badge" wx:if="{{activity.server}}">服务器：{{activity.server}}</view>
+          <view class="badge {{activity.limit && (activity.signupCount >= activity.limit) ? 'badge--danger' : ''}}">
+            {{activity.signupCount || 0}} / {{activity.limit || '-'}}
+          </view>
+        </view>
+      </view>
+
+      <view class="divider" style="margin: 28rpx 0;"></view>
+
+      <view class="info">
+        <view class="info-row" wx:if="{{activity.opponent}}">
+          <view class="label" style="margin:0;">对手</view>
+          <view class="value">{{activity.opponent}}</view>
+        </view>
+
+        <view class="info-row">
+          <view class="label" style="margin:0;">详情</view>
+          <view class="value" style="white-space: pre-wrap;">{{activity.desc || '暂无详细描述'}}</view>
+        </view>
+      </view>
+
+      <view class="status-tip" wx:if="{{!canSignup}}" style="margin-top: 22rpx;">
+        当前不可报名：{{banReason}}
+      </view>
+
+      <view class="actions">
+        <button
+          class="btn btn-primary"
+          style="width: 100%; height: 96rpx; font-size: 32rpx;"
+          bindtap="toggle"
+          loading="{{toggling}}"
+          wx:if="{{canSignup && !signed}}"
+        >立即报名</button>
+
+        <button
+          class="btn btn-primary btn-solid-blue"
+          style="width: 100%; height: 96rpx; font-size: 32rpx;"
+          bindtap="toggle"
+          loading="{{toggling}}"
+          wx:if="{{canSignup && signed}}"
+        ><text class="btn-label">取消报名</text></button>
+
+        <button
+          class="btn btn-ghost"
+          style="width: 100%;"
+          bindtap="goStats"
+          wx:if="{{isAdmin}}"
+        >报名统计</button>
+      </view>
+    </view>
+  </view>
+
+  <view wx:else class="empty">活动不存在或权限受限</view>
+</view>

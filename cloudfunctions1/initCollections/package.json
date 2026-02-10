@@ -1,0 +1,9 @@
+{
+  "name": "initCollections",
+  "version": "1.0.0",
+  "main": "index.js",
+  "private": true,
+  "dependencies": {
+    "@cloudbase/node-sdk": "^3.17.0"
+  }
+}

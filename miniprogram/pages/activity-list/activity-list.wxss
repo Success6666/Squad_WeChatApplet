@@ -1,0 +1,85 @@
+/* Activity List Specifics */
+
+/* Layout Params:
+   Page Container Padding: 30rpx (handled in grid container margin/padding or parent)
+   Card Gap: 20rpx
+   Grid: 3 columns default
+*/
+
+.activity-grid-container {
+  display: grid;
+  /*
+     Logic for 3 columns on standard screen:
+     (750 - 60padding - 40gap) / 3 = 216rpx per card.
+     Card spec is 220rpx.
+     Using center alignment or auto-fill to handle fit.
+     With 30rpx padding on sides:
+     Total width available = 750 - 60 = 690.
+     3 cards * 220 = 660.
+     Remaining for gap = 30rpx total -> 15rpx gap for 2 gaps.
+     Spec says 20rpx gap.
+     3 * 220 + 2 * 20 = 660 + 40 = 700.
+     700 > 690 available space.
+     So 3 columns of 220rpx with 20rpx gap DO NOT FIT in 750rpx width with 30rpx padding.
+
+     Strategy: Use space-between layout with flex wrap OR allow grid to shrink cards slightly.
+     Or implementing "responsive change to 2 cols" if <750rpx view width (which miniprogram is).
+     If the user insists on 3 cols, we must shrink margins or card size.
+
+     Let's try standard Grid with auto-fill minmax 210rpx?
+     Or stick to 2 columns for safety as per " <750rpx change to 2 columns".
+     Since mobile screens are always < 750px logical pixels (Wait, rpx is not px. rpx is always 750 width).
+     So " <750rpx " is a bit ambiguous. If they mean device width in px, mobile is usually < 750px.
+     I will enable 3 cols if it fits, else 2.
+  */
+  grid-template-columns: repeat(auto-fill, minmax(210rpx, 1fr));
+  gap: 20rpx;
+  padding: 0 30rpx;
+}
+
+/* Ensure page padding override if necessary */
+.page {
+  padding-left: 0;
+  padding-right: 0;
+  padding-bottom: 160rpx;
+}
+
+.bottom-nav{
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 120rpx;
+  background: #ffffff;
+  border-top: 1rpx solid #e5e7eb;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding-bottom: 16rpx;
+  z-index: 999;
+}
+
+.nav-item{
+  background: transparent;
+  border: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 8rpx 18rpx;
+  color: #666666;
+}
+
+.nav-emoji{ font-size: 34rpx; }
+.nav-label{ font-size: 24rpx; color: inherit; margin-top: 6rpx; }
+
+.nav-item-active{
+  color: #1677ff;
+}
+
+/* Reuse generic card styles, just fix potential layout spacing */
+.activity-card-container {
+  display: flex;
+  flex-direction: column;
+  gap: 24rpx;
+}

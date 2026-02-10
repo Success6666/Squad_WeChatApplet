@@ -1,0 +1,19 @@
+<view class="page">
+  <view class="card">
+    <view class="label">Steam 昵称 *</view>
+    <input class="input" placeholder="你的 Steam 昵称" placeholder-class="ph" value="{{steamNick}}" bindinput="onNick" />
+
+    <view class="label">Steam64 位 ID（17位数字）*</view>
+    <input class="input" placeholder="例如：7656119xxxxxxxxxx" placeholder-class="ph" value="{{steam64Id}}" bindinput="onSteam64" />
+
+    <view class="label">擅长位置（选填）</view>
+    <input class="input" placeholder="指挥 / 突击 / 支援..." placeholder-class="ph" value="{{position}}" bindinput="onPosition" />
+
+    <view class="label">在线时间（选填）</view>
+    <input class="input" placeholder="20:00-23:00" placeholder-class="ph" value="{{onlineTime}}" bindinput="onOnlineTime" />
+
+    <view style="margin-top: 22rpx;">
+      <button class="btn btn-primary" loading="{{submitting}}" bindtap="submit">提交申请</button>
+    </view>
+  </view>
+</view>

@@ -1,0 +1,71 @@
+<view class="page">
+  <view wx:if="{{cloudError}}" class="cloud-error">云服务初始化失败：{{cloudError}}</view>
+  <view wx:if="{{loading}}" class="loading">加载中...</view>
+
+  <block wx:if="{{hasTeam}}">
+    <view class="team-card">
+      <view class="team-avatar">
+        <image wx:if="{{teamLogo}}" class="team-avatar-img" src="{{teamLogo}}" mode="aspectFill" />
+        <view wx:else class="team-avatar-placeholder">战队</view>
+      </view>
+      <view class="team-name">{{team.name || '未命名战队'}}</view>
+      <view class="team-desc">{{team.desc || '暂无战队宣言'}}</view>
+    </view>
+
+    <view class="notice-card">
+      <view class="section-title">公告栏</view>
+      <view class="notice-text">{{announcementText || '暂无公告'}}</view>
+    </view>
+
+    <view class="news-card">
+      <view class="section-title">近期情报</view>
+      <view wx:if="{{recentActivities.length}}" class="news-list">
+        <view class="activity-compact" wx:for="{{recentActivities}}" wx:key="_id">
+          <view class="activity-title-row">
+            <view class="activity-title">{{item.title || '未命名活动'}}</view>
+            <text wx:if="{{item.ended}}" class="badge badge--brand activity-ended">已结束</text>
+          </view>
+          <view class="activity-type-row">
+            <text class="activity-type">{{item.typeText}}</text>
+            <text class="activity-count">参赛人数 <text class="activity-count-num">{{item.joinCount}}</text></text>
+          </view>
+          <view class="activity-line">开始：{{item.startText}}</view>
+          <view class="activity-line" wx:if="{{item.signupDeadline}}">截止：{{item.deadlineText}}</view>
+          <view class="activity-line" wx:if="{{item.server}}">服务器：{{item.server}}</view>
+        </view>
+      </view>
+      <view wx:else class="empty">暂无近期情报</view>
+    </view>
+  </block>
+
+  <block wx:else>
+    <view class="join-card">
+      <view class="empty">还未加入战队</view>
+      <button class="btn-outline" bindtap="goJoin">加入战队</button>
+      <button class="btn-outline" bindtap="goCreate">创建战队</button>
+    </view>
+  </block>
+
+  <view class="bottom-nav">
+    <button class="nav-item {{currentTab==='home' ? 'nav-item-active' : ''}}" bindtap="goTeamDetail">
+      <text class="nav-emoji">🏠</text>
+      <text class="nav-label">战队主页</text>
+    </button>
+    <button class="nav-item {{currentTab==='members' ? 'nav-item-active' : ''}}" bindtap="goMembers">
+      <text class="nav-emoji">👥</text>
+      <text class="nav-label">成员列表</text>
+    </button>
+    <button class="nav-item {{currentTab==='activities' ? 'nav-item-active' : ''}}" bindtap="goActivityList">
+      <text class="nav-emoji">📅</text>
+      <text class="nav-label">战队活动</text>
+    </button>
+    <button wx:if="{{isAdmin}}" class="nav-item {{currentTab==='server' ? 'nav-item-active' : ''}}" bindtap="goServerPanel">
+      <text class="nav-emoji">🛠️</text>
+      <text class="nav-label">服务器管理</text>
+    </button>
+    <button class="nav-item {{currentTab==='profile' ? 'nav-item-active' : ''}}" bindtap="goMyProfile">
+      <text class="nav-emoji">👤</text>
+      <text class="nav-label">我的</text>
+    </button>
+  </view>
+</view>

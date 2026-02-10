@@ -1,0 +1,94 @@
+<view class="page">
+  <view wx:if="{{loading}}" class="empty">加载中...</view>
+
+  <view wx:else>
+    <!-- Section 1: Basic Info -->
+    <view class="section-header section-center">活动基础信息</view>
+    <view class="form-group">
+      <!-- Title: inline with label (moved from stacked) -->
+      <view class="form-cell">
+        <view class="cell-label" style="min-width:120rpx;">活动标题</view>
+        <input class="cell-input" placeholder="例如：周末战术演练" placeholder-class="ph" value="{{title}}" bindinput="onTitle" style="flex: 0 0 60%; margin-left:8rpx; text-align: right; color: var(--text-main);" />
+      </view>
+
+      <!-- Type: Picker -->
+      <picker mode="selector" range="{{typeOptions}}" range-key="text" value="{{typeIndex || 0}}" bindchange="onType">
+        <view class="form-cell">
+          <view class="cell-label">活动类型</view>
+          <view class="cell-picker {{typeIndex==null ? 'cell-picker-placeholder' : ''}}">
+            <text>{{typeIndex==null ? '请选择' : typeOptions[typeIndex].text}}</text>
+          </view>
+        </view>
+      </picker>
+    </view>
+
+    <!-- Section 2: Timing -->
+    <view class="section-header section-center">时间安排</view>
+    <view class="form-group">
+      <picker mode="date" value="{{startDate}}" bindchange="onStartDate">
+        <view class="form-cell">
+          <view class="cell-label">开始日期</view>
+          <view class="cell-picker {{!startDate ? 'cell-picker-placeholder' : ''}}">
+            {{startDate || '请选择'}}
+          </view>
+        </view>
+      </picker>
+      <picker mode="time" value="{{startTime}}" bindchange="onStartTime">
+        <view class="form-cell">
+          <view class="cell-label">开始时间</view>
+          <view class="cell-picker {{!startTime ? 'cell-picker-placeholder' : ''}}">
+            {{startTime || '请选择'}}
+          </view>
+        </view>
+      </picker>
+
+      <!-- Deadline Group - separate visually or continuous? Continuous is cleaner in iOS style -->
+      <picker mode="date" value="{{deadlineDate}}" bindchange="onDeadlineDate">
+        <view class="form-cell">
+          <view class="cell-label">截止日期</view>
+          <view class="cell-picker {{!deadlineDate ? 'cell-picker-placeholder' : ''}}">
+            {{deadlineDate || '请选择'}}
+          </view>
+        </view>
+      </picker>
+      <picker mode="time" value="{{deadlineTime}}" bindchange="onDeadlineTime">
+        <view class="form-cell">
+          <view class="cell-label">截止时间</view>
+          <view class="cell-picker {{!deadlineTime ? 'cell-picker-placeholder' : ''}}">
+            {{deadlineTime || '请选择'}}
+          </view>
+        </view>
+      </picker>
+    </view>
+
+    <!-- Section 3: Game Config -->
+    <view class="section-header section-center">对战设置</view>
+    <view class="form-group">
+      <view class="form-cell">
+        <view class="cell-label">席位限制</view>
+        <input class="cell-input" type="number" placeholder="请输入参加人数" placeholder-class="ph" value="{{limit}}" bindinput="onLimit" />
+      </view>
+      <view class="form-cell">
+        <view class="cell-label">对手名称</view>
+        <input class="cell-input" placeholder="选填" placeholder-class="ph" value="{{opponent}}" bindinput="onOpponent" />
+      </view>
+      <view class="form-cell">
+        <view class="cell-label">服务器</view>
+        <input class="cell-input" placeholder="选填" placeholder-class="ph" value="{{server}}" bindinput="onServer" />
+      </view>
+    </view>
+
+    <!-- Section 4: Details -->
+    <view class="section-header section-center">活动详情</view>
+    <view class="form-group" style="padding: 0;">
+      <view class="form-cell stacked" style="border-bottom: none;">
+        <textarea class="form-textarea" placeholder="在此输入作战计划、装备要求或对战规则..." placeholder-class="ph" value="{{desc}}" bindinput="onDesc" maxlength="-1" />
+      </view>
+    </view>
+
+    <!-- Submit Action -->
+    <view style="margin: 64rpx 0 48rpx;">
+      <button class="btn btn-primary full-row" loading="{{submitting}}" disabled="{{submitting}}" bindtap="submit" style="margin: 0 auto; display: block;">{{editing ? '保存修改' : '发布活动'}}</button>
+    </view>
+  </view>
+</view>

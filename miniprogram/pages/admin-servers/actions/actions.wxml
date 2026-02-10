@@ -1,0 +1,89 @@
+<view class="page">
+  <view class="header">
+    <view class="title">审计日志</view>
+  </view>
+
+  <view class="title-divider-thin"></view>
+
+  <view class="card">
+    <view class="search-row">
+      <input class="input" placeholder="按操作者/动作/目标搜索" bindinput="onSearchInput" />
+      <button class="btn-search" bindtap="onSearch">搜索</button>
+    </view>
+
+    <scroll-view class="list" scroll-y>
+      <block wx:for="{{actions}}" wx:key="_id" wx:for-item="a" wx:for-index="i">
+        <view class="action-item">
+          <view class="main-row">
+            <view class="main-left">
+              <view class="time-row">{{a.timeStr}}</view>
+              <!-- ★ 修复：强制显示Steam64，即使无数据也显示“无Steam64” -->
+              <view class="steam-row">{{a.targetSteam || '无Steam64'}}</view>
+              <view class="action-row">{{a.action}} • {{a.displayOperator || '-'}}</view>
+            </view>
+            <view class="main-right">
+              <!-- ★ 核心修复：双保险传参，同时传递index和_id，解决点击无反应 -->
+              <button class="btn-detail"
+                      data-index="{{i}}"
+                      data-id="{{a._id}}"
+                      bindtap="openDetail">查看详情</button>
+              <button wx:if="{{a.canManage}}"
+                      class="btn-manage-audit"
+                      data-index="{{i}}"
+                      data-id="{{a._id}}"
+                      bindtap="openAuditManage">管理</button>
+            </view>
+          </view>
+
+          <view wx:if="{{a.showReason}}" class="reason">原因: {{a.reason || '-'}}</view>
+        </view>
+      </block>
+      <view wx:if="{{!actions || actions.length===0}}" class="empty">暂无审计记录</view>
+    </scroll-view>
+
+    <!-- 详情模态 -->
+    <block wx:if="{{detailModalVisible}}">
+      <view class="modal-mask"></view>
+      <view class="detail-modal">
+        <view class="modal-title">详情</view>
+        <view class="modal-body">
+          <view class="detail-row"><text class="muted">时间：</text><text>{{detailData.timeStr || '-'}}</text></view>
+          <view class="detail-row"><text class="muted">目标 Steam64：</text><text>{{detailData.targetSteam || '无Steam64'}}</text></view>
+          <view class="detail-row"><text class="muted">操作：</text><text>{{detailData.action}}</text></view>
+          <view class="detail-row"><text class="muted">操作者：</text><text>{{detailData.displayOperator || detailData.operatorOpenId || '-'}}</text></view>
+          <!-- 只有封禁显示时长 -->
+          <view wx:if="{{detailData.isBan}}" class="detail-row"><text class="muted">封禁时长：</text><text>{{detailData.duration || '-'}}</text></view>
+          <!-- 只有封禁或踢出显示原因 -->
+          <view wx:if="{{detailData.showReason}}" class="detail-row"><text class="muted">原因：</text><text>{{detailData.reason || '-'}}</text></view>
+          <view class="detail-row"><text class="muted">命令：</text><text class="cmd">{{detailData.command || detailData.commandRaw || '-'}}</text></view>
+          <view class="detail-row"><text class="muted">原始：</text><text class="cmd">{{detailData._raw || '-'}}</text></view>
+        </view>
+        <view class="modal-actions">
+          <button bindtap="closeDetail">关闭</button>
+        </view>
+      </view>
+    </block>
+
+    <!-- 管理模态 -->
+    <block wx:if="{{manageModalVisible}}">
+      <view class="modal-mask"></view>
+      <view class="manage-modal">
+        <view class="modal-title">管理 - {{manageModalData && manageModalData.player}}</view>
+        <view class="modal-body">
+          <view class="form-row"><label>操作</label><view>{{manageModalAction}}</view></view>
+          <view class="form-row"><label>目标 Steam64</label><view>{{manageModalData && manageModalData.player}}</view></view>
+          <view class="form-row"><label>封禁时长</label>
+            <input class="input" placeholder="例如：0(永久)/1d/1m/1y" value="{{manageDuration}}" bindinput="onManageDurationInput" />
+          </view>
+          <view class="form-row"><label>理由</label>
+            <input class="input" placeholder="请输入理由" value="{{manageReason}}" bindinput="onManageReasonInput" />
+          </view>
+        </view>
+        <view class="modal-actions">
+          <button bindtap="cancelManageModal">取消</button>
+          <button bindtap="confirmManageModal">确认</button>
+        </view>
+      </view>
+    </block>
+  </view>
+</view>

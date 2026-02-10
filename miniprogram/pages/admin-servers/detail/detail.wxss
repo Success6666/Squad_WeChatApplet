@@ -1,0 +1,8 @@
+.page{padding:30rpx;background:#fff;min-height:100vh}
+.header{display:flex;justify-content:space-between;align-items:center;margin-bottom:20rpx}
+.title{font-size:32rpx;color:#1677FF}
+.actions button{margin-left:12rpx}
+.info .row{display:flex;justify-content:flex-start;padding:12rpx 0;border-bottom:1px solid #F3F4F6}
+.label{width:120rpx;color:#666}
+.value{flex:1;color:#111}
+.section-title{font-size:28rpx;margin-top:24rpx}

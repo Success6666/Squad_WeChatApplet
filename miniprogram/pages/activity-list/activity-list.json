@@ -1,0 +1,8 @@
+{
+  "navigationBarTitleText": "战队活动",
+  "navigationBarTextStyle": "white",
+  "navigationBarBackgroundColor": "#0A84FF",
+  "usingComponents": {
+    "activity-card": "/components/activity-card/activity-card"
+  }
+}

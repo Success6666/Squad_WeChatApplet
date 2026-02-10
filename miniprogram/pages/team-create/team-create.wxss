@@ -1,0 +1,63 @@
+/* .ph handled globally */
+
+.logo {
+  width: 140rpx;
+  height: 140rpx;
+  border-radius: 24rpx;
+  border: 1px dashed rgba(17, 24, 39, 0.12);
+  background: #F3F4F6;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.cell-input {
+  /* 增加边框可见性，满足用户需求 */
+  border: 1px solid rgba(0,0,0,0.1);
+  border-radius: 8rpx;
+  padding-left: 12rpx; /* reduce left padding so text begins near the input start */
+  padding-right: 16rpx;
+  height: 64rpx;
+  line-height: 64rpx; /* vertically center single-line text */
+  text-align: left; /* explicitly left-align text */
+  box-sizing: border-box;
+}
+
+/* name row: label + input inline */
+.form-cell.row.single-line {
+  display: flex;
+  align-items: center;
+  gap: 12rpx;
+}
+
+.cell-label {
+  font-size: 28rpx;
+  color: #111827;
+}
+
+.cell-textarea.visible-multi {
+  min-height: 160rpx;
+  border: 1px solid rgba(0,0,0,0.06);
+  border-radius: 8rpx;
+  padding: 12rpx;
+  font-size: 26rpx;
+  box-sizing: border-box;
+  resize: none;
+}
+
+/* full-width save button */
+.btn.full-row {
+  width: 100%;
+  height: 64rpx;
+  line-height: 64rpx;
+  font-size: 28rpx;
+  border-radius: 8rpx;
+}
+
+.header-with-line {
+  width: 100%;
+  padding-bottom: 12rpx;
+  border-bottom: 1px solid rgba(0,0,0,0.06); /* thin black line */
+}
+
+.section-center { text-align: center; }

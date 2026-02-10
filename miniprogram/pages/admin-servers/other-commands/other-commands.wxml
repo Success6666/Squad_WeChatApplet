@@ -1,0 +1,35 @@
+<view class="page">
+  <view class="header"><view class="title">其他命令</view></view>
+  <view class="title-divider-thin"></view>
+  <view class="card">
+    <view class="grid">
+      <view class="grid-item">
+        <button class="btn block primary" data-cmd="AdminPauseMatch" bindtap="onCmd">暂停比赛</button>
+      </view>
+      <view class="grid-item">
+        <button class="btn block primary" data-cmd="AdminUnpauseMatch" bindtap="onCmd">解除暂停</button>
+      </view>
+      <view class="grid-item">
+        <button class="btn block primary" data-cmd="AdminSlomo" data-needarg="true" bindtap="onCmd">设置时间倍速</button>
+      </view>
+      <view class="grid-item">
+        <button class="btn block primary" data-cmd="AdminRestartMatch" bindtap="onCmd">重开对局</button>
+      </view>
+    </view>
+
+    <!-- simple prompt modal for arguments -->
+    <block wx:if="{{promptVisible}}">
+      <view class="modal-mask"></view>
+      <view class="prompt-modal">
+        <view class="modal-title">{{promptLabel}}</view>
+        <view class="modal-body">
+          <input class="input" placeholder="{{promptPlaceholder}}" value="{{promptValue}}" bindinput="onPromptInput" />
+        </view>
+        <view class="modal-actions">
+          <button bindtap="cancelPrompt">取消</button>
+          <button bindtap="confirmPrompt">发送</button>
+        </view>
+      </view>
+    </block>
+  </view>
+</view>

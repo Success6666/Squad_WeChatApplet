@@ -1,0 +1,41 @@
+<view class="page">
+  <view wx:if="{{loading}}" class="loading">加载中...</view>
+
+  <view class="profile-card">
+    <view class="avatar-wrap">
+      <image wx:if="{{profile && profile.avatarUrl}}" class="avatar-img" src="{{profile.avatarUrl}}" mode="aspectFill" />
+      <view wx:else class="avatar-placeholder">{{(profile && profile.steamNick) ? profile.steamNick[0] : 'U'}}</view>
+    </view>
+    <view class="profile-name">{{(profile && profile.steamNick) || (myMember && myMember.steamNick) || '未设置昵称'}}</view>
+    <view class="profile-id">64位：{{(profile && profile.steam64Id) || (myMember && myMember.steam64Id) || '-'}}</view>
+  </view>
+
+  <view class="action-list">
+    <button class="btn secondary" bindtap="goEditProfile">编辑个人信息</button>
+    <button class="btn secondary" bindtap="goReview">审核申请</button>
+    <button class="btn secondary" bindtap="manageTeam">战队管理</button>
+  </view>
+</view>
+
+<view class="bottom-nav">
+  <button class="nav-item" bindtap="goHome">
+    <text class="nav-emoji">🏠</text>
+    <text class="nav-label">战队主页</text>
+  </button>
+  <button class="nav-item" bindtap="goMembers">
+    <text class="nav-emoji">👥</text>
+    <text class="nav-label">成员列表</text>
+  </button>
+  <button class="nav-item" bindtap="goActivityList">
+    <text class="nav-emoji">📅</text>
+    <text class="nav-label">战队活动</text>
+  </button>
+  <button wx:if="{{isAdmin}}" class="nav-item" bindtap="goServerPanel">
+    <text class="nav-emoji">🛠️</text>
+    <text class="nav-label">服务器管理</text>
+  </button>
+  <button class="nav-item nav-item-active" bindtap="goMy">
+    <text class="nav-emoji">👤</text>
+    <text class="nav-label">我的</text>
+  </button>
+</view>

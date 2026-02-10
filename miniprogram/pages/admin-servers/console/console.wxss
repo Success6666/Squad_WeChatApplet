@@ -1,0 +1,252 @@
+/* 去掉CSS变量，直接用实际颜色，避免解析问题 */
+.page {
+    padding: 20rpx;
+    background: #F7FBFF;
+    min-height: 100vh;
+    display: flex !important;
+    flex-direction: column !important;
+    box-sizing: border-box !important;
+    padding-bottom: 160rpx;
+}
+
+.header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 8rpx;
+}
+
+.title {
+    display: block;
+    width: 100%;
+    text-align: center;
+    font-size: 24rpx;
+    font-weight: 600;
+    color: #1677FF;
+}
+
+.title-divider {
+    display: block;
+    height: 4rpx;
+    background: #d1d5db;
+    margin: 16rpx 0;
+    border-radius: 2rpx;
+}
+
+.card {
+    background: #FFFFFF;
+    border-radius: 10rpx;
+    padding: 12rpx 8rpx;
+    box-shadow: 0 2rpx 6rpx rgba(22,119,255,0.04);
+    margin-bottom: 12rpx;
+}
+
+.stats {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+}
+
+.row {
+    display: flex;
+    justify-content: space-between;
+    gap: 0;
+}
+
+.stat {
+    width: 50%;
+    display: flex;
+    align-items: center;
+    gap: 10rpx;
+    padding: 16rpx 8rpx;
+    font-size: 20rpx;
+}
+
+.stat.cell {
+    border-right: 2rpx solid #e5e7eb;
+    border-bottom: 2rpx solid #e5e7eb;
+}
+.row:last-child .stat.cell {
+    border-bottom: none;
+}
+.row .stat.cell:nth-child(2) {
+    border-right: none;
+}
+
+.flag-red { color: #ff3b30; }
+.flag-blue { color: #1677FF; }
+.flag-black { color: #111827; }
+
+.emoji {
+    font-size: 26rpx;
+    width: 46rpx;
+    text-align: center;
+}
+
+.meta .label {
+    font-size: 14rpx;
+    color: #6B7280;
+}
+
+.meta .value {
+    font-size: 18rpx;
+    color: #111827;
+    font-weight: 600;
+}
+
+.raw-text {
+    font-family: monospace;
+    font-size: 14rpx;
+    color: #6B7280;
+    white-space: pre-wrap;
+}
+
+/* 操作区盒子 强制垂直排列 间距拉开 */
+.actions-bar {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 15rpx !important;
+    margin-top: 20rpx !important; /* 增大与上方卡片的间距 */
+    width: 100% !important;
+    box-sizing: border-box !important;
+    margin-bottom: auto !important; /* 让操作区靠上，避免下方空白 */
+}
+
+/* 输入框+发送按钮 这一行 强制同行 永不换行 */
+.actions-row {
+    display:flex !important;
+    gap:8rpx !important;
+    align-items:center !important;
+    width: 100% !important;
+    flex-wrap: nowrap !important;
+}
+
+/* 输入框 强制占满剩余宽度 */
+.actions-row .broadcast-input {
+    flex:1 !important;
+}
+
+/* ✅ 发送按钮 强制极小固定尺寸 贴右侧 永不变化 彻底锁死 */
+.btn-send {
+    flex: none !important;
+    width: 140rpx !important;
+    height: 64rpx !important;
+    padding: 10rpx 12rpx !important;
+    margin: 0 !important;
+    font-size: 16rpx !important;
+    line-height: 64rpx !important;
+    border-radius: 8rpx !important;
+    text-align: center !important;
+    min-width: auto !important;
+    min-height: auto !important;
+}
+
+/* ✅✅✅ 重中之重【强制独占一行核心】玩家列表按钮容器 绝对独占一整行 无任何例外！ */
+.players-row {
+    display: block !important;
+    width: 100% !important;
+    height: auto !important;
+    clear: both !important;
+    float: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+.players-row .btn {
+    flex: none !important;
+    width: 100% !important;
+    /* use flex to vertically center text reliably */
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    text-align: center !important;
+    font-size: 26rpx !important; /* slightly larger */
+    height: 64rpx !important; /* match broadcast/send height */
+    /* remove line-height so flex centering controls vertical position */
+    line-height: normal !important;
+    padding: 0 16rpx !important; /* horizontal padding but no vertical padding */
+    box-sizing: border-box !important;
+    border-radius: 10rpx !important; /* keep shape */
+    font-weight: 600 !important; /* bolder */
+    background: #FFFFFF !important;
+    color: #1677FF !important;
+    border: 1rpx solid #1677FF !important;
+    -webkit-appearance: none !important;
+}
+
+/* ✅✅✅ 通用独占行规则 强制生效 后续新增按钮全部套用 */
+.single-row {
+    display: block !important;
+    width: 100% !important;
+    clear: both !important;
+    float: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+.single-row .btn {
+    flex: none !important;
+    width: auto !important;
+    display: inline-block !important;
+}
+
+/* 输入框样式 强制固定高度 */
+.broadcast-input {
+    height: 64rpx !important;
+    padding: 0 10rpx !important;
+    border-radius: 8rpx !important;
+    border: 1rpx solid #e6e9ef !important;
+    background: #fff !important;
+    font-size: 16rpx !important;
+    box-sizing: border-box !important;
+}
+
+/* 基础按钮样式 */
+.btn {
+    padding: 10rpx 16rpx !important;
+    border-radius: 8rpx !important;
+    font-size: 16rpx !important;
+    box-sizing: border-box !important;
+}
+
+.btn.primary {
+    background: #1677FF !important;
+    color: #fff !important;
+}
+
+.btn.secondary {
+    background: #FFFFFF !important;
+    color: #1677FF !important;
+    border: 1rpx solid #1677FF !important;
+}
+
+.bottom-nav{
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 120rpx;
+    background: #ffffff;
+    border-top: 1rpx solid #e5e7eb;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding-bottom: 16rpx;
+    z-index: 999;
+}
+
+.nav-item{
+    background: transparent;
+    border: none;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 8rpx 18rpx;
+    color: #666666;
+}
+
+.nav-emoji{ font-size: 34rpx; }
+.nav-label{ font-size: 24rpx; color: inherit; margin-top: 6rpx; }
+
+.nav-item-active{
+    color: #1677ff;
+}

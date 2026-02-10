@@ -1,0 +1,86 @@
+<view class="page">
+  <view wx:if="{{loading}}" class="empty">正在通讯...</view>
+
+  <view wx:elif="{{team}}">
+    <!-- Hero Header -->
+    <view class="card hero-card">
+      <view class="row space-between" style="align-items: flex-start;">
+        <view class="col" style="flex: 1; padding-right: 32rpx;">
+          <view class="title hero-title">{{team.name}}</view>
+          <view class="subtitle hero-desc" wx:if="{{team.desc}}">{{team.desc}}</view>
+        </view>
+        <view class="badge badge--brand" style="font-size: 26rpx; padding: 8rpx 24rpx;">
+          {{team.memberCount || members.length}} 成员
+        </view>
+      </view>
+
+      <view class="divider"></view>
+
+      <!-- Action Grid -->
+      <view class="action-grid">
+        <button class="btn btn-primary" style="background: #0A84FF !important; color: #fff !important;" bindtap="goJoin" wx:if="{{!myMember || myMember.status !== 'approved'}}">申请加入</button>
+        <button class="btn btn-primary" style="background: #0A84FF !important; color: #fff !important;" bindtap="goActivities" wx:if="{{myMember && myMember.status === 'approved'}}">查看战队活动</button>
+
+        <!-- 将服务器控制面板按钮放在“查看战队活动”右侧（位置调整，样式保留） -->
+        <button class="btn btn-primary" style="background: #0A84FF !important; color: #fff !important;" bindtap="goServerPanel" wx:if="{{isAdmin}}">服务器控制面板</button>
+
+        <button class="btn btn-ghost" style="border: 1px solid #D1D5DB; color: #111827;" bindtap="goCreateActivity" wx:if="{{isAdmin}}">发布新活动</button>
+        <button class="btn btn-ghost" style="border: 1px solid #D1D5DB; color: #111827;" bindtap="manageTeam" wx:if="{{isAdmin}}">管理战队</button>
+        <button class="btn btn-ghost" style="border: 1px solid #D1D5DB; color: #111827;" bindtap="goMyProfile" wx:if="{{myMember}}">我的名片</button>
+
+        <button class="btn btn-ghost" style="border: 1px solid #D1D5DB; color: #111827;" bindtap="goReview" wx:if="{{isAdmin}}">审核申请</button>
+      </view>
+
+      <view class="status-tip" wx:if="{{myMember && myMember.status !== 'approved'}}">
+        <text style="opacity: 0.7;">当前状态：</text>
+        <text style="font-weight: 600;">{{myMember.status === 'pending' ? '审核中' : myMember.status}}</text>
+      </view>
+    </view>
+
+    <!-- Member List -->
+    <view id="member-list" class="section-title" wx:if="{{myMember && myMember.status === 'approved'}}">成员名单</view>
+    <view class="card" wx:if="{{myMember && myMember.status === 'approved'}}">
+      <view wx:if="{{!members.length}}" class="empty">暂无成员</view>
+
+      <!-- ✅ 成员项父容器：补全flex布局+宽度100% -->
+      <view wx:for="{{members}}" wx:key="_id" class="member-item" style="width: 100%; display: flex; justify-content: space-between; align-items: center; padding: 16rpx 0;">
+        <view class="row" style="flex: 1; overflow: hidden; min-width: 0;">
+          <view class="avatar-placeholder" style="flex-shrink: 0;">{{item.steamNick[0] || 'U'}}</view>
+          <view class="col" style="margin-left: 20rpx; overflow: hidden;">
+            <view class="row" style="gap: 8rpx; align-items: center; margin-bottom: 4rpx;">
+              <view class="badge" wx:if="{{item.role==='owner'}}" style="background: rgba(245, 158, 11, 0.15); color: #b45309; border-color: rgba(245, 158, 11, 0.3); font-size: 20rpx; padding: 2rpx 8rpx; flex-shrink: 0;">队长</view>
+              <view class="badge" wx:elif="{{item.role==='admin'}}" style="background: rgba(16, 185, 129, 0.15); color: #047857; border-color: rgba(16, 185, 129, 0.3); font-size: 20rpx; padding: 2rpx 8rpx; flex-shrink: 0;">管理员</view>
+              <view style="font-weight:600; font-size: 30rpx; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">{{item.steamNick}}</view>
+            </view>
+            <view class="subtitle" style="font-size: 22rpx;">ID: {{item.steam64Id}}</view>
+            <view class="subtitle" style="font-size: 22rpx; color: #DC2626;" wx:if="{{item.banForever || (item.banUntil && item.banUntil > nowTs)}}">
+              禁赛中
+            </view>
+          </view>
+        </view>
+
+        <!-- ✅ 管理按钮容器：彻底右移+间距 -->
+        <block wx:if="{{isAdmin && item._id !== myMember._id && item.role !== 'owner'}}">
+          <block wx:if="{{isOwner || item.role !== 'admin'}}">
+            <view class="admin-actions" style="margin-left: auto; padding-left: 32rpx; flex-shrink: 0;">
+              <button class="btn btn-ghost" size="mini" bindtap="showMemberMenu" data-id="{{item._id}}" data-role="{{item.role}}" data-nick="{{item.steamNick}}" style="margin: 0; min-height: 50rpx; height: 50rpx; line-height: 50rpx; font-size: 24rpx; white-space:nowrap;">管理</button>
+            </view>
+          </block>
+        </block>
+      </view>
+    </view>
+
+    <!-- Recent Activities -->
+    <view class="row space-between section-header" wx:if="{{myMember && myMember.status === 'approved'}}">
+      <view class="section-title" style="margin:0;">近期情报</view>
+      <view class="link" bindtap="goActivities">全部 &gt;</view>
+    </view>
+
+    <view wx:if="{{myMember && myMember.status === 'approved'}}">
+      <view wx:if="{{!activities.length}}" class="empty card">暂无正在进行的活动</view>
+      <activity-card wx:for="{{activities}}" wx:key="_id" activity="{{item}}" bind:tapactivity="goActivityDetail" />
+    </view>
+  </view>
+
+  <view wx:else class="empty">战队资料已加密或不存在</view>
+</view>

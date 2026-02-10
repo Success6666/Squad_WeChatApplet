@@ -1,0 +1,9 @@
+{
+  "triggers": [
+    {
+      "name": "serverLogCron",
+      "type": "timer",
+      "config": "*/1 * * * * * *"
+    }
+  ]
+}

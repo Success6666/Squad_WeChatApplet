@@ -1,0 +1,10 @@
+{
+  "name": "activityUpdate",
+  "version": "1.0.0",
+  "description": "Update activity (admin only)",
+  "main": "index.js",
+  "dependencies": {
+    "wx-server-sdk": "latest"
+  }
+}
+

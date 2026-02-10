@@ -1,0 +1,58 @@
+<view wx:if="{{mode === 'list'}}" class="list-card {{hover ? 'hover' : ''}}" bindtap="onTap" hover-class="hover">
+  <!-- Top Row: Title + Status -->
+  <view class="row space-between" style="align-items: flex-start; margin-bottom: 16rpx;">
+    <view class="grid-title line-clamp" style="font-size: 34rpx; max-width: 500rpx; margin-bottom: 0;">{{activity.title}}</view>
+    <view class="grid-tag {{activity.isSignup ? 'tag-green' : 'tag-blue'}}" style="margin: 0;">{{statusText}}</view>
+  </view>
+
+  <!-- Info Rows (Horizontal in List Mode maybe?) or stacked -->
+  <view class="row start" style="gap: 32rpx; margin-bottom: 24rpx;">
+    <view class="grid-info-row" style="margin: 0;">
+      <text class="icon">📅</text>
+      <text class="info-text">{{startTimeText}}</text>
+    </view>
+    <view class="grid-info-row" style="margin: 0;">
+      <text class="icon">👥</text>
+      <text class="info-text">{{activity.signupCount || 0}}/{{activity.limit || 0}} 成员</text>
+    </view>
+  </view>
+
+  <!-- Actions -->
+  <view class="row space-between" style="margin-top:auto; position: relative; height: 48rpx;">
+     <!-- Details Button Left -->
+     <button class="grid-btn outline" style="width: 120rpx !important; position: absolute; left: 0; bottom: 0;">详情</button>
+
+     <!-- Status / Type (Optional Center or Top Right in this new layout? Keeping type visible is good) -->
+     <view class="badge" style="position: absolute; left: 50%; transform: translateX(-50%); opacity: 0.6; font-size: 20rpx;">{{typeText}}</view>
+
+     <!-- Signup Button Right -->
+     <button class="grid-btn primary" style="width: 120rpx !important; position: absolute; right: 0; bottom: 0;" catchtap="onSignup">报名</button>
+  </view>
+</view>
+
+<view wx:else class="grid-card {{hover ? 'hover' : ''}}" bindtap="onTap" hover-class="hover">
+  <!-- Status Tag Top-Left -->
+  <view class="grid-tag {{activity.isSignup ? 'tag-green' : 'tag-blue'}}">
+    {{statusText}}
+  </view>
+
+  <!-- Title -->
+  <view class="grid-title line-clamp">{{activity.title}}</view>
+
+  <!-- Info Rows -->
+  <view class="grid-info-row">
+    <!-- Icon placeholder implies icon, using text for now or simple unicode -->
+    <text class="icon">📅</text>
+    <text class="info-text">{{startTimeText}}</text>
+  </view>
+  <view class="grid-info-row">
+    <text class="icon">👥</text>
+    <text class="info-text">{{activity.signupCount || 0}}/{{activity.limit || 0}} 成员</text>
+  </view>
+
+  <!-- Footer Buttons -->
+  <view class="grid-footer">
+    <button class="grid-btn outline">详情</button>
+    <button class="grid-btn primary" catchtap="onSignup">报名</button>
+  </view>
+</view>

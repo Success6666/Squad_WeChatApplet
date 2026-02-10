@@ -1,0 +1,204 @@
+@import "./styles/theme.wxss";
+@import "./styles/form.wxss";
+
+page {
+  background: var(--bg-color) !important;
+  background-color: var(--bg-color) !important;
+  color: var(--text-main);
+  font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Helvetica Neue", Helvetica, sans-serif;
+  font-size: 28rpx;
+  line-height: 1.5;
+}
+
+
+view, text, image, navigator {
+  box-sizing: border-box;
+}
+
+/* --- Buttons --- */
+button.btn {
+  position: relative;
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+  padding: 0 32rpx;
+  height: 88rpx;
+  border-radius: var(--radius-md);
+  font-size: 30rpx;
+  font-weight: 600;
+  /* IMPORTANT: allow variants to control border; default just none */
+  border: none;
+  transition: opacity 0.2s;
+  /* IMPORTANT: don't force white text for all buttons, ghost needs dark text */
+  color: var(--text-main) !important;
+  background: var(--panel-strong); /* Default state */
+  margin: 0;
+
+  /* Ensure visibility always */
+  min-width: 120rpx;
+  overflow: visible;
+  z-index: 1;
+}
+
+/* 部分基础库会把 button 的内部文字渲染为 <text>，这里强制继承颜色，避免“按钮存在但字看不见” */
+button.btn text {
+  color: inherit !important;
+  /* 修复：inheriting 不是合法 font-weight 值，会导致部分基础库 WXSS 解析异常 */
+  font-weight: inherit !important;
+  display: inline-block;
+}
+
+button.btn::after {
+  display: none;
+}
+
+button.btn-primary {
+  background-color: #007AFF !important; /* 强制使用标准蓝 */
+  color: #FFFFFF !important;
+}
+
+button.btn-primary:active {
+  opacity: 0.8;
+  background: var(--primary-bg);
+}
+
+button.btn-ghost {
+  background: #fff !important;
+  border: 1px solid #D1D5DB !important; /* visible border on light bg */
+  color: #111827 !important; /* readable text */
+}
+
+button.btn-ghost:active {
+  background: rgba(0,0,0,0.05);
+  opacity: 1;
+}
+
+button.btn-danger {
+  background: var(--danger-bg) !important;
+  color: #fff !important;
+}
+
+button.btn[size="mini"] {
+  height: 56rpx;
+  padding: 0 24rpx;
+  font-size: 24rpx;
+  border-radius: 12rpx;
+}
+
+button.btn[disabled] {
+  opacity: 0.55;
+}
+
+/* ✅ 新增：强制文字白色工具类（用于嵌套在button内部彻底解决颜色不继承问题） */
+.text-white {
+  color: #FFFFFF !important;
+  font-weight: 600;
+  display: inline-block; /* 修复部分机型不显示问题 */
+}
+
+/* ✅ 增强：确保 Primary 按钮背景色不被覆盖 */
+button.btn-primary {
+  background-color: #007AFF !important; /* 强制使用标准蓝 */
+  color: #FFFFFF !important;
+}
+
+/* 兜底：强制蓝底白字按钮（用于遇到样式冲突时保证一定可见） */
+.btn-solid-blue {
+  background: #007AFF !important;
+  color: #FFFFFF !important;
+  border: 1px solid #007AFF !important;
+  /* 修复：强制 block 布局防止文字被压缩 */
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn-solid-blue .btn-label {
+  color: #FFFFFF !important;
+  /* 修复：确保文字不被挤压 */
+  flex-shrink: 0;
+}
+
+/* 独立修复：针对创建战队页面的按钮（没有 btn-solid-blue 类） */
+.btn-primary .btn-label {
+  color: #FFFFFF !important;
+}
+
+/* 显式按钮文字：用于避免某些基础库下 button 纯文本不渲染/被覆盖 */
+.btn-label {
+  color: inherit !important;
+  font-size: inherit;
+  font-weight: 600;
+  line-height: 1;
+  z-index: 2;
+  position: relative;
+}
+
+/* --- Form Inputs --- */
+/* Deprecating old .input/.textarea in favor of form.wxss structure for new pages,
+   but keeping for compatibility if any old pages use them */
+.input, .textarea {
+  width: 100%;
+  background: var(--panel-strong);
+  border: 1px solid #E5E7EB; /* show hit area clearly */
+  border-radius: var(--radius-sm);
+  padding: 24rpx 32rpx;
+  font-size: 30rpx;
+  color: var(--text-main);
+  margin-bottom: 32rpx;
+}
+
+/* focus shouldn't turn dark in light theme */
+.input:focus, .textarea:focus {
+  background: var(--panel-strong);
+  border-color: rgba(0, 122, 255, 0.45);
+}
+
+input, textarea {
+  color: var(--text-main) !important;
+}
+
+.ph {
+  color: #AEAEB2 !important; /* 强制覆盖，确保一定是灰色 */
+  font-weight: normal;
+}
+
+.label {
+  font-size: 24rpx;
+  font-weight: 500;
+  color: var(--text-secondary);
+  margin-bottom: 16rpx;
+  display: block;
+  text-transform: uppercase;
+  letter-spacing: 1rpx;
+}
+
+.wx-switch-input{
+  background: var(--panel-strong) !important;
+  border: 1px solid var(--panel-border) !important;
+}
+
+/* 修复 Switch 选中样式被覆盖的问题：选中时恢复默认背景色（由 color 属性控制） */
+.wx-switch-input-checked {
+  background-color: #007AFF !important;
+  border-color: #007AFF !important;
+}
+
+/* 注意：.cell-input 是表单 input 的 class，不应该影响 button 内部 text。
+   之前这里用 !important 会误伤控件内部渲染的 text，造成“按钮有边框但文字不可见”。 */
+/* 移除旧规则：.cell-input { color: var(--text-secondary) !important; } */
+
+input.cell-input,
+textarea.cell-input {
+  color: var(--text-main) !important;
+}
+
+/* button 内部 text 兜底：确保跟随按钮自身颜色 */
+button text {
+  color: inherit !important;
+}
+
+/* 兜底：尝试覆盖 input placeholder 伪类（部分基础库支持） */
+.input-placeholder, .textarea-placeholder {
+  color: #AEAEB2 !important;
+}

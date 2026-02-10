@@ -1,0 +1,40 @@
+.ph{color: rgba(255,255,255,0.35);} /* ...existing code... */
+
+/* Page-specific fixes: ensure inputs in profile are vertically centered and don't clip */
+.input {
+  box-sizing: border-box; /* ensure padding is inside width */
+  display: block; /* ensure standard block layout */
+  width: 100%;
+  padding: 18rpx 24rpx !important; /* increased padding to give more vertical room */
+  font-size: 30rpx !important; /* slightly larger for readability */
+  height: 80rpx !important; /* increase height so font fits comfortably */
+  line-height: 44rpx !important; /* line-height for input text (not equal to height to allow caret) */
+  border-radius: 8rpx;
+  vertical-align: middle;
+  -webkit-appearance: none; /* avoid native styling issues on some devices */
+}
+
+/* placeholder-class style for inputs (mini-program uses placeholder-class) */
+.ph {
+  color: #AEAEB2 !important;
+  line-height: 44rpx !important;
+}
+
+/* New wrapper to vertically center the input element consistently before/focus */
+.input-wrap {
+  display: flex;
+  align-items: center; /* vertical center */
+  width: 100%;
+}
+
+/* Small tweak: ensure card label and input-wrap spacing is consistent */
+.card .label {
+  margin-bottom: 8rpx;
+  font-size: 26rpx;
+}
+
+/* Ensure the save button stays visually prominent */
+.btn-solid-blue {
+  background: #0A84FF !important;
+  color: #fff !important;
+}

@@ -1,0 +1,274 @@
+/* 微信小程序专用 最终版 - 按钮强制固定尺寸 彻底不占空间 */
+.page {
+  display: flex;
+  flex-direction: column;
+  padding: 18rpx;
+  background: #F7FBFF;
+  min-height: 100vh;
+  box-sizing: border-box;
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 16rpx;
+}
+.title {
+  font-size: 28rpx;
+  color: #1677FF;
+  font-weight: 600;
+}
+
+.tabs {
+  display: flex;
+  gap: 12rpx;
+  justify-content: center;
+  margin-bottom: 16rpx;
+}
+.tab {
+  padding: 8rpx 20rpx;
+  border-radius: 8rpx;
+  background: #fff;
+  border: 1rpx solid #e6e9ef;
+  color: #1677FF;
+  font-size: 22rpx;
+  margin: 0;
+  min-height: auto;
+}
+.tab:active {
+  background: #eef6ff;
+}
+
+.list {
+  flex: 1;
+  width: 100%;
+}
+
+.squad-group {
+  background: #fff;
+  margin-bottom: 20rpx;
+  padding: 12rpx 15rpx;
+  border-radius: 8rpx;
+  border: 1rpx solid #e6e9ef;
+  border-bottom: 1rpx solid #333333;
+}
+.squad-group:last-child {
+  border-bottom: none;
+  margin-bottom: 0;
+}
+
+.squad-title {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8rpx;
+  flex-wrap: nowrap; /* prevent wrapping so button stays on same line */
+}
+.squad-title-left {
+  display: flex;
+  align-items: center;
+  gap: 8rpx;
+  flex: 1;
+  min-width: 0; /* allow shrinking in flex */
+  overflow: hidden; /* truncate overflow */
+  white-space: nowrap; /* ensure single line */
+  text-overflow: ellipsis; /* show ... for overflow */
+}
+.squad-title-right {
+  flex-shrink: 0;
+  margin-left: 8rpx;
+}
+
+.player-row {
+  padding: 10rpx 0;
+  border-bottom: 1rpx solid #eeeeee;
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+.player-row:last-child {
+  border-bottom: none;
+}
+
+.player-main {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  gap: 8rpx;
+}
+
+.player-info {
+  display: flex;
+  align-items: center;
+  gap: 8rpx;
+  flex: 1;
+  min-width: 0;
+}
+
+.leader-tag {
+  color: #FF5722;
+  font-weight: 500;
+  font-size: 22rpx;
+}
+
+.player-name {
+  font-weight: 500;
+  font-size: 24rpx;
+  color: #222222;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.player-role {
+  color: #666;
+  font-size: 22rpx;
+  margin-left: 8rpx;
+  white-space: nowrap;
+}
+
+.leader-badge {
+  background: rgba(245, 158, 11, 0.15);
+  color: #b45309;
+  border: 1rpx solid rgba(245, 158, 11, 0.3);
+  padding: 2rpx 8rpx;
+  font-size: 20rpx;
+  border-radius: 6rpx;
+  flex-shrink: 0;
+}
+
+.player-actions {
+  display: flex;
+  align-items: center;
+  gap: 8rpx;
+}
+
+/* ✅ 终极强制固定尺寸：按钮锁死为极小方块，完全不占多余位置 */
+.btn-steam {
+  /* 强制固定死尺寸，无论任何情况都不变 */
+  width: 64rpx !important;
+  height: 28rpx !important;
+  line-height: 28rpx !important;
+  font-size: 18rpx !important; /* slightly larger for readability */
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  padding: 0 6rpx !important;
+  margin: 0 0 0 12rpx !important;
+  min-width: auto !important;
+  min-height: auto !important;
+  border-radius: 6rpx !important;
+  background: #eef6ff !important;
+  color: #1677FF !important;
+  border: 1rpx solid #cfe6ff !important;
+  box-sizing: border-box !important;
+  white-space: nowrap !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+}
+.btn-steam:active {
+  background: #d5eaff !important;
+}
+
+/* ensure manage button is identical and cannot change size */
+.btn-manage {
+  width: 64rpx !important;
+  height: 28rpx !important;
+  line-height: 28rpx !important;
+  font-size: 18rpx !important; /* slightly larger */
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  padding: 0 6rpx !important;
+  margin: 0 0 0 12rpx !important;
+  min-width: auto !important;
+  min-height: auto !important;
+  border-radius: 6rpx !important;
+  background: #fff0f0 !important;
+  color: #ff3b30 !important;
+  border: 1rpx solid #ffd0d0 !important;
+  box-sizing: border-box !important;
+  white-space: nowrap !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+}
+.btn-manage:active {
+  background: #ffecec !important;
+}
+
+/* disband button identical to other action buttons */
+.btn-disband {
+  width: 64rpx !important;
+  height: 28rpx !important;
+  line-height: 28rpx !important;
+  font-size: 18rpx !important; /* slightly larger */
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  padding: 0 6rpx !important;
+  margin: 0 0 0 12rpx !important;
+  min-width: auto !important;
+  min-height: auto !important;
+  border-radius: 6rpx !important;
+  background: #fffbe6 !important;
+  color: #b27b00 !important;
+  border: 1rpx solid #ffeabb !important;
+  box-sizing: border-box !important;
+  white-space: nowrap !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+}
+.btn-disband:active { background: #fff3d6 !important; }
+
+.btn-demote {
+  width: 64rpx;
+  height: 28rpx;
+  padding: 0 6rpx;
+  font-size: 16rpx;
+  line-height: 28rpx;
+  border-radius: 6rpx;
+  background: #fff;
+  color: #111;
+  border: 1rpx solid #ddd;
+}
+
+/* modal */
+.modal-mask {
+  position: fixed;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.4);
+}
+.modal {
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 86%;
+  background: #fff;
+  border-radius: 10rpx;
+  padding: 16rpx;
+}
+.modal-title {
+  font-weight: 700;
+  font-size: 22rpx;
+  margin-bottom: 12rpx;
+}
+.modal-body input {
+  width: 100%;
+  padding: 10rpx;
+  margin-bottom: 10rpx;
+  border-radius: 6rpx;
+  border: 1rpx solid #e6e9ef;
+}
+.modal-actions {
+  display: flex;
+  gap: 8rpx;
+  justify-content: flex-end;
+}
+.modal-actions button {
+  padding: 8rpx 12rpx;
+  border-radius: 6rpx;
+}

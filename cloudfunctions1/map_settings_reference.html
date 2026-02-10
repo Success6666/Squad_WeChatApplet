@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="zh">
+<head>
+  <meta charset="utf-8" />
+  <title>地图设置参考</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <style>
+    body{font-family:Arial,Helvetica,sans-serif;padding:20px;background:#f7fbff}
+    .boxed{background:#fff;padding:16px;border-radius:8px;max-width:980px;margin:auto}
+    h1{color:#1677ff}
+    label{display:block;margin:8px 0 4px}
+    select,input,button{padding:8px;border-radius:6px;border:1px solid #e6e9ef}
+    .row{display:flex;gap:12px}
+  </style>
+</head>
+<body>
+  <div class="boxed">
+    <h1>地图设置与预设（参考）</h1>
+    <p>这是一个参考页面，展示如何选择地图、地图层与两边阵营与兵种，生成并发送 AdminSetNextLayer / AdminChangeLayer 命令。</p>
+    <div>
+      <label>选择地图</label>
+      <select id="map"></select>
+    </div>
+    <div>
+      <label>选择地图层</label>
+      <select id="layer"></select>
+    </div>
+    <div class="row">
+      <div style="flex:1">
+        <label>阵营1</label>
+        <select id="f1"></select>
+        <label>兵种1</label>
+        <select id="u1"></select>
+      </div>
+      <div style="flex:1">
+        <label>阵营2</label>
+        <select id="f2"></select>
+        <label>兵种2</label>
+        <select id="u2"></select>
+      </div>
+    </div>
+    <div style="margin-top:12px">
+      <button id="btnPreview">生成命令</button>
+      <button id="btnSetNext">预设下一局</button>
+      <button id="btnChangeNow">立即切换</button>
+    </div>
+    <pre id="out" style="margin-top:12px;background:#f3f4f6;padding:12px;border-radius:6px"></pre>
+  </div>
+  <script>
+    fetch('/mapData').then(r=>r.json()).then(res=>{
+      const d=res.data||res
+      const mapSelect=document.getElementById('map')
+      d.maps.forEach(m=>{const o=document.createElement('option');o.value=m.map_en;o.textContent=m.map_cn;mapSelect.appendChild(o)})
+      const f1=document.getElementById('f1'),f2=document.getElementById('f2'),u1=document.getElementById('u1'),u2=document.getElementById('u2'),layer=document.getElementById('layer')
+      d.factions.forEach(f=>{const o=document.createElement('option');o.value=f.faction_en;o.textContent=f.faction_cn;f1.appendChild(o);f2.appendChild(o.cloneNode(true))})
+      d.unit_types.forEach(u=>{const o=document.createElement('option');o.value=u.unit_en;o.textContent=u.unit_cn;u1.appendChild(o);u2.appendChild(o.cloneNode(true))})
+      function updateLayers(){layer.innerHTML='';(d.all_layers[mapSelect.value]||[]).forEach(l=>{const o=document.createElement('option');o.value=l;o.textContent=l;layer.appendChild(o)})}
+      mapSelect.addEventListener('change',updateLayers);updateLayers();
+      document.getElementById('btnPreview').addEventListener('click',()=>{const cmd=`AdminSetNextLayer ${layer.value} ${f1.value}+${u1.value} ${f2.value}+${u2.value}`;document.getElementById('out').textContent=cmd})
+      document.getElementById('btnSetNext').addEventListener('click',()=>{alert('示例：已发送（模拟）')} )
+      document.getElementById('btnChangeNow').addEventListener('click',()=>{alert('示例：已发送（模拟）')} )
+    })
+  </script>
+</body>
+</html>
+

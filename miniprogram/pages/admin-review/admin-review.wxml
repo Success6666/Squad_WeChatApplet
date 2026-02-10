@@ -1,0 +1,23 @@
+<view class="page">
+  <view wx:if="{{loading}}" class="empty">加载中...</view>
+
+  <view wx:elif="{{!list.length}}" class="empty">暂无待审核申请</view>
+
+  <view wx:for="{{list}}" wx:key="_id" class="card">
+    <view class="row space-between">
+      <view class="col">
+        <view style="font-weight:700;">{{item.steamNick}}</view>
+        <view class="subtitle">Steam64: {{item.steam64Id}}</view>
+        <view class="subtitle" wx:if="{{item.position}}">位置：{{item.position}}</view>
+        <view class="subtitle" wx:if="{{item.onlineTime}}">在线：{{item.onlineTime}}</view>
+      </view>
+      <view class="badge">{{item.status}}</view>
+    </view>
+
+    <view class="row" style="gap: 16rpx; margin-top: 18rpx;">
+      <button class="btn btn-primary" size="mini" loading="{{actingId===item._id}}" bindtap="approve" data-id="{{item._id}}">通过</button>
+      <button class="btn btn-danger" size="mini" loading="{{actingId===item._id}}" bindtap="reject" data-id="{{item._id}}">拒绝</button>
+    </view>
+  </view>
+</view>
+

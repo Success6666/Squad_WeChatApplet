@@ -1,0 +1,18 @@
+/* .ph handled globally */
+
+.search-area {
+  margin-bottom: 32rpx;
+}
+
+/* Wrapper for the team list to handle rounded corners on the group, iOS style */
+.team-list {
+  background: var(--panel-bg);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  box-shadow: 0 2rpx 12rpx rgba(0,0,0,0.05);
+}
+
+/* Remove bottom border from the last item in the list */
+.team-list team-card:last-child .team-item {
+  border-bottom: none;
+}

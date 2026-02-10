@@ -1,0 +1,58 @@
+<view class="page">
+  <view wx:if="{{loading}}" class="empty">正在通讯...</view>
+
+  <view wx:elif="{{team}}">
+    <view class="section-title">成员名单</view>
+    <view class="card">
+      <view wx:if="{{!members.length}}" class="empty">暂无成员</view>
+
+      <view wx:for="{{members}}" wx:key="_id" class="member-item" style="width: 100%; display: flex; justify-content: space-between; align-items: center;">
+        <view class="row" style="flex: 1; overflow: hidden; min-width: 0;">
+          <view class="avatar-placeholder" style="flex-shrink: 0;">{{item.steamNick[0] || 'U'}}</view>
+          <view class="col" style="margin-left: 20rpx; overflow: hidden;">
+            <view class="row" style="gap: 8rpx; align-items: center; margin-bottom: 4rpx;">
+              <view class="badge" wx:if="{{item.role==='owner'}}" style="background: rgba(245, 158, 11, 0.15); color: #b45309; border-color: rgba(245, 158, 11, 0.3); font-size: 20rpx; padding: 2rpx 8rpx; flex-shrink: 0;">队长</view>
+              <view class="badge" wx:elif="{{item.role==='admin'}}" style="background: rgba(16, 185, 129, 0.15); color: #047857; border-color: rgba(16, 185, 129, 0.3); font-size: 20rpx; padding: 2rpx 8rpx; flex-shrink: 0;">管理员</view>
+              <view class="member-name" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">{{item.steamNick}}</view>
+            </view>
+            <view class="member-meta">ID: {{item.steam64Id}}</view>
+            <view class="member-meta" style="color: #DC2626;" wx:if="{{item.banForever || (item.banUntil && item.banUntil > nowTs)}}">禁赛中</view>
+          </view>
+        </view>
+
+        <block wx:if="{{isAdmin && item._id !== myMember._id && item.role !== 'owner'}}">
+          <block wx:if="{{isOwner || item.role !== 'admin'}}">
+            <view class="admin-actions" style="margin-left: auto; padding-left: 32rpx; flex-shrink: 0;">
+              <button class="btn btn-ghost" size="mini" bindtap="showMemberMenu" data-id="{{item._id}}" data-role="{{item.role}}" style="margin: 0; min-height: 50rpx; height: 50rpx; line-height: 50rpx; font-size: 24rpx; white-space:nowrap;">管理</button>
+            </view>
+          </block>
+        </block>
+      </view>
+    </view>
+  </view>
+
+  <view wx:else class="empty">战队资料已加密或不存在</view>
+</view>
+
+<view class="bottom-nav">
+  <button class="nav-item" bindtap="goHome">
+    <text class="nav-emoji">🏠</text>
+    <text class="nav-label">战队主页</text>
+  </button>
+  <button class="nav-item nav-item-active">
+    <text class="nav-emoji">👥</text>
+    <text class="nav-label">成员列表</text>
+  </button>
+  <button class="nav-item" bindtap="goActivityList">
+    <text class="nav-emoji">📅</text>
+    <text class="nav-label">战队活动</text>
+  </button>
+  <button wx:if="{{isAdmin}}" class="nav-item" bindtap="goServerPanel">
+    <text class="nav-emoji">🛠️</text>
+    <text class="nav-label">服务器管理</text>
+  </button>
+  <button class="nav-item" bindtap="goMy">
+    <text class="nav-emoji">👤</text>
+    <text class="nav-label">我的</text>
+  </button>
+</view>

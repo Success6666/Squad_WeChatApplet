@@ -1,0 +1,24 @@
+<view class="page">
+  <view class="header">
+    <text class="title">服务器列表</text>
+    <block wx:if="{{isAdmin}}">
+      <button class="btn-create" bindtap="onCreate">创建服务器</button>
+    </block>
+  </view>
+
+  <view class="list">
+    <block wx:for="{{servers}}" wx:key="_id">
+      <view class="card" bindtap="onOpen" data-id="{{item._id}}">
+        <view class="card-left">
+          <text class="name">{{item.name}}</text>
+          <text class="meta">{{item.host}}:{{item.port}}</text>
+        </view>
+        <view class="card-right">
+          <button class="btn small" data-id="{{item._id}}" catchtap="onTest">测试</button>
+          <button class="btn small outline" data-id="{{item._id}}" catchtap="onConsole">控制台</button>
+        </view>
+      </view>
+    </block>
+    <view wx:if="{{!servers || servers.length === 0}}" class="empty">暂无服务器，点击“创建服务器”添加</view>
+  </view>
+</view>

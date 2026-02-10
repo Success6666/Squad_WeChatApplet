@@ -1,0 +1,58 @@
+<view class="page">
+  <view class="row" style="gap: 20rpx; margin-bottom: 24rpx; padding: 0 30rpx;">
+    <!-- Moved buttons to top bar for better access, fixed visibility -->
+    <button class="btn btn-primary" size="mini" style="background: #0A84FF !important; color: #fff !important;" bindtap="goCreate" wx:if="{{isAdmin}}">+ 发布</button>
+    <button class="btn btn-ghost" size="mini" style="border: 1px solid #D1D5DB; color: #111827;" bindtap="goTeam">战队首页</button>
+  </view>
+
+  <view wx:if="{{loading && !activities.length}}" class="empty">加载中...</view>
+
+  <view wx:elif="{{!activities.length}}" class="empty">
+    <text>暂无活动安排</text>
+  </view>
+
+  <view class="activity-list-container">
+    <view wx:for="{{activities}}" wx:key="_id" style="position: relative;">
+      <activity-card
+        activity="{{item}}"
+        mode="list"
+        bind:tapactivity="goDetail"
+        bind:signup="onSignup"
+      />
+
+      <button
+        wx:if="{{isAdmin}}"
+        class="btn btn-ghost"
+        size="mini"
+        style="position:absolute; right: 18rpx; top: 18rpx; height: 52rpx; padding: 0 18rpx; border-radius: 10rpx;"
+        catchtap="openManage"
+        data-id="{{item._id}}"
+      >管理</button>
+    </view>
+  </view>
+
+  <view wx:if="{{loading && activities.length}}" class="empty" style="padding: 20rpx;">正在加载更多...</view>
+</view>
+
+<view class="bottom-nav">
+  <button class="nav-item" bindtap="goHome">
+    <text class="nav-emoji">🏠</text>
+    <text class="nav-label">战队主页</text>
+  </button>
+  <button class="nav-item" bindtap="goMembers">
+    <text class="nav-emoji">👥</text>
+    <text class="nav-label">成员列表</text>
+  </button>
+  <button class="nav-item nav-item-active">
+    <text class="nav-emoji">📅</text>
+    <text class="nav-label">战队活动</text>
+  </button>
+  <button wx:if="{{isAdmin}}" class="nav-item" bindtap="goServerPanel">
+    <text class="nav-emoji">🛠️</text>
+    <text class="nav-label">服务器管理</text>
+  </button>
+  <button class="nav-item" bindtap="goMy">
+    <text class="nav-emoji">👤</text>
+    <text class="nav-label">我的</text>
+  </button>
+</view>

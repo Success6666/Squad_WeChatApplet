@@ -1,0 +1,8 @@
+{
+  "navigationBarTitleText": "战队列表",
+  "navigationBarTextStyle": "white",
+  "navigationBarBackgroundColor": "#0A84FF",
+  "usingComponents": {
+    "team-card": "/components/team-card/team-card"
+  }
+}

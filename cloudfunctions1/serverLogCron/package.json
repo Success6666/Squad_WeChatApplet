@@ -1,0 +1,10 @@
+{
+  "name": "serverLogCron",
+  "version": "1.0.0",
+  "description": "Scheduled server log collector for Squad servers",
+  "main": "index.js",
+  "dependencies": {
+    "luxon": "^3.5.0"
+  }
+}
+

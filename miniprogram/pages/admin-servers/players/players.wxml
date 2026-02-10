@@ -1,0 +1,73 @@
+<view class="page">
+  <view class="header">
+    <view class="title">玩家列表</view>
+  </view>
+
+  <view class="title-divider-thin"></view>
+
+  <view class="tabs">
+    <button class="tab" bindtap="selectTeam" data-team="1">{{teamNames[0] || '阵营1'}}</button>
+    <button class="tab" bindtap="selectTeam" data-team="2">{{teamNames[1] || '阵营2'}}</button>
+  </view>
+
+  <!-- 微信小程序scroll-view必须占满剩余空间，用flex:1实现 -->
+  <scroll-view class="list" scroll-y>
+    <block wx:for="{{groupedSquads}}" wx:for-item="group" wx:for-index="gIndex" wx:key="gIndex">
+      <view class="squad-group">
+        <!-- squad title row: left=title, right=actions -->
+        <view class="squad-title">
+          <view class="squad-title-left">
+            <block wx:if="{{group.isUnassigned}}">未加入小队</block>
+            <block wx:else>
+              小队 {{group.id || (gIndex + 1)}}
+              <block wx:if="{{group.name}}"> - {{group.name}}</block>
+              <block wx:if="{{group.creator}}">（创建者: {{group.creator}}）</block>
+            </block>
+          </view>
+
+          <!-- right side: disband button (only for real squads, not '未加入小队') -->
+          <view class="squad-title-right">
+            <button wx:if="{{!group.isUnassigned}}" class="btn-disband" data-gindex="{{gIndex}}" data-squadid="{{group.id}}" bindtap="disbandSquad">解散</button>
+          </view>
+        </view>
+
+        <view class="squad-players">
+          <block wx:for="{{group.members}}" wx:for-item="player" wx:for-index="pIndex" wx:key="pIndex">
+            <view class="player-row">
+              <view class="player-main">
+                <view class="player-info">
+                  <view class="badge leader-badge" wx:if="{{player.isCommander}}">指挥官</view>
+                  <view class="badge leader-badge" wx:elif="{{player.isLeader}}">队长</view>
+                  <view class="player-name">{{player.name}}</view>
+                  <text class="player-role" wx:if="{{player.role}}"> 兵种: {{player.role}}</text>
+                </view>
+                <view class="player-actions">
+                  <button class="btn-steam" data-gindex="{{gIndex}}" data-pindex="{{pIndex}}" bindtap="viewSteam">查看</button>
+                  <button class="btn-manage" data-gindex="{{gIndex}}" data-pindex="{{pIndex}}" bindtap="openManage">管理</button>
+                  <button wx:if="{{player.isCommander}}" class="btn-demote" data-gindex="{{gIndex}}" data-pindex="{{pIndex}}" bindtap="demoteCommander">卸任</button>
+                </view>
+              </view>
+            </view>
+          </block>
+        </view>
+      </view>
+    </block>
+  </scroll-view>
+
+  <!-- 管理模态（简单实现） -->
+  <block wx:if="{{manageModalVisible}}">
+    <view class="modal-mask"></view>
+    <view class="modal">
+      <view class="modal-title">管理玩家</view>
+      <view class="modal-body">
+        <text>操作：{{manageModalAction}}</text>
+        <input type="text" placeholder="请输入理由/内容" value="{{manageReason}}" bindinput="manageReasonInput" />
+        <input wx:if="{{manageModalAction==='ban'}}" type="text" placeholder="封禁时长(0/1d/1m/1y)" value="{{manageDuration}}" bindinput="manageDurationInput" />
+      </view>
+      <view class="modal-actions">
+        <button bindtap="cancelManage">取消</button>
+        <button bindtap="confirmManage">确认</button>
+      </view>
+    </view>
+  </block>
+</view>

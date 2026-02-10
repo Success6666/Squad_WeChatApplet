@@ -1,0 +1,54 @@
+<view class="col" style="min-height: 80vh; justify-content: center;" wx:if="{{loading}}">
+  <view class="empty">加载中...</view>
+</view>
+
+<view class="page" wx:else>
+  <view wx:if="{{profile}}">
+    <!-- Header Card -->
+    <view class="card row" style="padding: 48rpx 32rpx; align-items: center;">
+      <view class="avatar-placeholder" style="width: 120rpx; height: 120rpx; font-size: 48rpx; background: var(--panel-strong); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: var(--text-main); margin-right: 32rpx; flex-shrink: 0;">
+        {{profile.steamNick[0] || 'U'}}
+      </view>
+      <view class="col">
+        <view class="title" style="margin-bottom: 8rpx;">{{profile.steamNick}}</view>
+        <view class="badge {{profile.status==='approved'? 'badge--brand' : ''}}" style="margin-top: 0; align-self: flex-start;">{{profile.status}}</view>
+      </view>
+    </view>
+
+    <!-- Form Section -->
+    <view class="section-title" style="margin: 32rpx 0 16rpx; color: var(--text-secondary); font-size: 26rpx; text-transform: uppercase; padding-left: 16rpx;">编辑资料</view>
+
+    <view class="card">
+      <view class="label">Steam 昵称</view>
+      <view class="input-wrap">
+        <input class="input" placeholder="输入你的游戏ID" placeholder-class="ph" value="{{profile.steamNick}}" bindinput="onSteamNick" />
+      </view>
+
+      <view class="label">Steam 64ID</view>
+      <view class="input-wrap">
+        <input class="input" placeholder="7656119xxxxxxxxxx" placeholder-class="ph" value="{{profile.steam64Id}}" bindinput="onSteam64" />
+      </view>
+
+      <view class="label">擅长位置</view>
+      <view class="input-wrap">
+        <input class="input" placeholder="例：指挥 / 医疗 / 机枪" placeholder-class="ph" value="{{profile.position}}" bindinput="onPosition" />
+      </view>
+
+      <view class="label">通常在线时间</view>
+      <view class="input-wrap">
+        <input class="input" placeholder="例：每晚 20:00 - 23:00" placeholder-class="ph" value="{{profile.onlineTime}}" bindinput="onOnlineTime" style="margin-bottom: 0;" />
+      </view>
+    </view>
+
+    <view style="margin-top: 40rpx; display: flex; justify-content: center;">
+      <button class="btn btn-primary btn-solid-blue" style="width: 60%; height: 96rpx; font-size: 32rpx;" loading="{{saving}}" bindtap="save">
+        <text class="btn-label">保存更新</text>
+      </button>
+    </view>
+  </view>
+
+  <view class="empty" wx:else>
+    <view style="margin-bottom: 20rpx;">未找到档案</view>
+    <button class="btn btn-ghost" bindtap="goBack">返回</button>
+  </view>
+</view>

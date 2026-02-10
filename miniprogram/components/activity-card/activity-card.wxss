@@ -1,0 +1,144 @@
+/* styles reuse .card/.badge from theme */
+
+/* Grid Card Styles */
+.grid-card {
+  width: 220rpx; /* Spec: 220 */
+  /* height: 300rpx; Spec: 300 - allowing auto height for flexibility or fixed? */
+  height: 300rpx;
+  background: #FFFFFF;
+  border-radius: 12rpx;
+  box-shadow: 0 2rpx 8rpx rgba(0,0,0,0.05); /* Spec: 0 2 8 */
+  border: 1px solid #E5E7EB;
+  box-sizing: border-box;
+  padding: 16rpx;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  transition: all 0.2s;
+  overflow: hidden;
+}
+
+.grid-card.hover {
+  transform: translateY(-2rpx);
+  box-shadow: 0 4rpx 12rpx rgba(0,0,0,0.08); /* Spec hover */
+}
+
+/* Modern List Mode Card Style */
+.list-card {
+  width: 100%;
+  background: #FFFFFF;
+  border-radius: 12rpx;
+  box-shadow: 0 2rpx 8rpx rgba(0,0,0,0.05);
+  border: 1px solid #E5E7EB;
+  padding: 24rpx;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  transition: all 0.2s;
+  overflow: hidden;
+  margin-bottom: 24rpx; /* Space between cards */
+  box-sizing: border-box;
+}
+
+.list-card.hover {
+  transform: translateY(-2rpx);
+  box-shadow: 0 4rpx 12rpx rgba(0,0,0,0.08);
+}
+
+/* Tag Styles */
+.grid-tag {
+  display: inline-block;
+  padding: 4rpx 12rpx;
+  border-radius: 8rpx;
+  font-size: 24rpx;
+  align-self: flex-start;
+  margin-bottom: 12rpx;
+  line-height: 1.2;
+}
+
+.tag-blue {
+  background: #E8F4FF;
+  color: #4096FF;
+}
+
+.tag-green {
+  background: #F0F9FF; /* Spec says F0F9FF for green bg? */
+  color: #52C41A;
+}
+
+/* Typography */
+.grid-title {
+  font-size: 32rpx;
+  font-weight: 600;
+  color: #1F2329;
+  /* margin-top: 16rpx; Already pushed by tag */
+  margin-bottom: 12rpx;
+  line-height: 1.3;
+
+  /* Line clamp 2 lines */
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+  height: 84rpx; /* approx 2 lines */
+}
+
+.grid-info-row {
+  display: flex;
+  align-items: center;
+  margin-top: 8rpx;
+}
+
+.icon {
+  font-size: 24rpx; /* Spec 24 */
+  margin-right: 8rpx;
+}
+
+.info-text {
+  font-size: 24rpx; /* Spec 28 might be too big for 220 width, reducing to 24/26 safe */
+  color: #666666;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Footer Buttons */
+.grid-footer {
+  margin-top: auto; /* Push to bottom */
+  display: flex;
+  justify-content: space-between;
+}
+
+/* Grid Button - shared for list mode too */
+.grid-btn {
+  width: 120rpx !important; /* Adjusted for better touch target */
+  height: 56rpx !important; /* Slightly taller */
+  border-radius: 8rpx;
+  padding: 0 !important;
+  font-size: 24rpx !important;
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+  margin: 0 !important;
+  line-height: 56rpx;
+}
+
+.grid-btn.outline {
+  background: transparent;
+  border: 1px solid #D9D9D9;
+  color: #666666;
+}
+
+.grid-btn.outline:active {
+  border-color: #4096FF;
+  color: #4096FF;
+}
+
+.grid-btn.primary {
+  background: #52C41A;
+  color: #FFFFFF;
+}
+
+.grid-btn.primary:active {
+  background: #389E0D;
+}

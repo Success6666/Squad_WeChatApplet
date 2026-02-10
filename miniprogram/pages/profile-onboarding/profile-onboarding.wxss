@@ -1,0 +1,26 @@
+/* Use global .ph (theme) to ensure readability on light background */
+
+.page {
+  padding: 32rpx;
+}
+
+/* Ensure inputs are tall and vertically centered like other profile pages */
+.input {
+  box-sizing: border-box;
+  display: block;
+  width: 100%;
+  padding: 18rpx 24rpx !important;
+  font-size: 30rpx !important;
+  height: 80rpx !important;
+  line-height: 44rpx !important;
+  border-radius: 8rpx;
+  -webkit-appearance: none;
+}
+
+.input-wrap {
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.ph { color: #AEAEB2 !important; }

@@ -1,0 +1,21 @@
+<view class="page">
+  <view class="header">
+    <text class="title">{{server.name}}</text>
+    <view class="actions">
+      <button bindtap="onEdit" class="btn outline">编辑</button>
+      <button bindtap="onTest" class="btn">测试连接</button>
+    </view>
+  </view>
+
+  <view class="info">
+    <view class="row"><text class="label">地址：</text><text class="value">{{server.host}}:{{server.port}}</text></view>
+    <view class="row"><text class="label">类型：</text><text class="value">{{server.type}}</text></view>
+    <view class="row"><text class="label">协议：</text><text class="value">{{server.protocol}}</text></view>
+    <view class="row"><text class="label">备注：</text><text class="value">{{server.metadata && server.metadata.description}}</text></view>
+  </view>
+
+  <view class="logs">
+    <text class="section-title">最近操作</text>
+    <view class="empty">暂无操作日志（服务端需启用记录）</view>
+  </view>
+</view>

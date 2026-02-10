@@ -1,0 +1,4 @@
+# common 目录仅作为源码参考，不作为独立云函数部署/依赖安装
+package-lock.json
+node_modules/
+

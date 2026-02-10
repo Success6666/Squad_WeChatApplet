@@ -1,0 +1,38 @@
+{
+  "pages": [
+    "pages/home/home",
+    "pages/member-list/member-list",
+    "pages/my-center/my-center",
+    "pages/profile-onboarding/profile-onboarding",
+    "pages/join-team/join-team-search",
+    "pages/join-team/join-team",
+    "pages/team-create/team-create",
+    "pages/my-profile/my-profile",
+    "pages/admin-review/admin-review",
+    "pages/activity-list/activity-list",
+    "pages/activity-create/activity-create",
+    "pages/activity-detail/activity-detail",
+    "pages/signup-admin/signup-admin",
+    "pages/index/index",
+    "pages/admin-servers/list/list",
+    "pages/admin-servers/detail/detail",
+    "pages/admin-servers/edit/edit",
+    "pages/admin-servers/console/console",
+    "pages/admin-servers/players/players",
+    "pages/admin-servers/map-settings/map-settings",
+    "pages/admin-servers/actions/actions",
+    "pages/admin-servers/warmup/warmup",
+    "pages/admin-servers/other-commands/other-commands"
+  ],
+  "window": {
+    "navigationBarTitleText": "Squad 战队",
+    "navigationBarBackgroundColor": "#0B0F1A",
+    "navigationBarTextStyle": "white",
+    "backgroundColor": "#0B0F1A",
+    "backgroundTextStyle": "dark"
+  },
+  "style": "v2",
+  "sitemapLocation": "sitemap.json",
+  "usingComponents": {},
+  "lazyCodeLoading": "requiredComponents"
+}

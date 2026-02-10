@@ -1,0 +1,126 @@
+<view class="page">
+  <view class="header">
+    <view class="title">🚀 {{status.serverName || server.name || '服务器控制台'}}</view>
+  </view>
+
+  <!-- 加粗灰色分隔线：服务器名称与信息区 -->
+  <view class="title-divider"></view>
+
+  <view class="card stats">
+    <view class="row">
+      <view class="stat cell">
+        <text class="emoji">👥</text>
+        <view class="meta">
+          <text class="label">在线玩家</text>
+          <text class="value">{{status.playersDisplay}}</text>
+        </view>
+      </view>
+      <view class="stat cell">
+        <text class="emoji">🗺️</text>
+        <view class="meta">
+          <text class="label">地图</text>
+          <text class="value">{{status.map}}</text>
+        </view>
+      </view>
+    </view>
+
+    <view class="row">
+      <view class="stat cell">
+        <text class="emoji flag-red">🚩</text>
+        <view class="meta">
+          <text class="label">阵营1</text>
+          <text class="value">{{status.team1}}</text>
+        </view>
+      </view>
+      <view class="stat cell">
+        <text class="emoji flag-black">🏴</text>
+        <view class="meta">
+          <text class="label">阵营2</text>
+          <text class="value">{{status.team2}}</text>
+        </view>
+      </view>
+    </view>
+
+    <view class="row">
+      <view class="stat cell">
+        <text class="emoji">⏱️</text>
+        <view class="meta">
+          <text class="label">对局时间</text>
+          <text class="value">{{status.duration}}</text>
+        </view>
+      </view>
+      <view class="stat cell">
+        <text class="emoji">📶</text>
+        <view class="meta">
+          <text class="label">延迟</text>
+          <text class="value">{{status.latency}}</text>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 广播输入框和操作按钮 -->
+  <view class="actions-bar">
+    <view class="actions-row">
+      <input type="text" class="broadcast-input" placeholder="请输入服务器广播内容" value="{{broadcastText}}" bindinput="onBroadcastInput" maxlength="200" />
+      <button class="btn primary btn-send" bindtap="sendBroadcast">发送广播</button>
+    </view>
+
+    <!-- 新增：发送指令行（与广播格式一致） -->
+    <view class="actions-row">
+      <input type="text" class="broadcast-input" placeholder="请输入完整服务器指令" value="{{commandText}}" bindinput="onCommandInput" maxlength="200" />
+      <button class="btn primary btn-send" bindtap="sendCommand">发送指令</button>
+    </view>
+
+    <!-- 新增：审计日志入口（独占一行，样式和玩家列表一样） -->
+    <view class="actions-row players-row">
+      <button class="btn secondary" bindtap="openActions">审计日志</button>
+    </view>
+
+    <view class="actions-row players-row">
+      <button class="btn secondary" bindtap="openMapSettings">设置和预设地图</button>
+    </view>
+
+    <view class="actions-row players-row">
+      <button class="btn secondary" bindtap="openPlayers">玩家列表</button>
+    </view>
+
+    <view class="actions-row players-row">
+      <button class="btn secondary" bindtap="openWarmup">暖服命令</button>
+    </view>
+
+    <view class="actions-row players-row">
+      <button class="btn secondary" bindtap="openOtherCommands">其他命令</button>
+    </view>
+
+    <!-- 新增：服务器设置（仅战队队长可见） -->
+    <view wx:if="{{showServerSettings}}" class="actions-row players-row">
+      <button class="btn secondary" bindtap="openServerSettings">服务器设置</button>
+    </view>
+
+  </view>
+
+  <view class="bottom-nav">
+    <button class="nav-item" bindtap="goHome">
+      <text class="nav-emoji">🏠</text>
+      <text class="nav-label">战队主页</text>
+    </button>
+    <button class="nav-item" bindtap="goMembers">
+      <text class="nav-emoji">👥</text>
+      <text class="nav-label">成员列表</text>
+    </button>
+    <button class="nav-item" bindtap="goActivityList">
+      <text class="nav-emoji">📅</text>
+      <text class="nav-label">战队活动</text>
+    </button>
+    <button class="nav-item nav-item-active">
+      <text class="nav-emoji">🛠️</text>
+      <text class="nav-label">服务器管理</text>
+    </button>
+    <button class="nav-item" bindtap="goMy">
+      <text class="nav-emoji">👤</text>
+      <text class="nav-label">我的</text>
+    </button>
+  </view>
+
+</view>

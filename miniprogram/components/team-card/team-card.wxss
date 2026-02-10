@@ -1,0 +1,51 @@
+/* Modern List Item Style - Rectangular Card Box style */
+.team-item {
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: center !important;
+  padding: 24rpx 32rpx !important;
+  background: var(--panel-bg);
+  /* Make independent card */
+  margin-bottom: 24rpx;
+  border-radius: 12rpx; /* Spec: 12rpx corner */
+  border: 1px solid #E5E7EB; /* Spec: 1px border */
+  box-shadow: 0 2rpx 8rpx rgba(0,0,0,0.05); /* Spec: shadow */
+  position: relative;
+  transition: all 0.2s;
+}
+
+.team-item:active {
+  transform: translateY(-2rpx);
+  box-shadow: 0 4rpx 12rpx rgba(0,0,0,0.08);
+}
+
+.logo {
+  width: 96rpx;
+  height: 96rpx;
+  border-radius: 16rpx;
+  background: var(--panel-strong);
+  flex-shrink: 0;
+  margin-right: 24rpx;
+  border: 1px solid rgba(0,0,0,0.05); /* very subtle border */
+}
+
+/* Ensure text doesn't overflow or break layout */
+.col {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.title {
+  font-size: 32rpx;
+  font-weight: 500;
+  color: #1677FF;
+  margin-bottom: 4rpx;
+}
+
+.subtitle {
+  font-size: 26rpx;
+  color: var(--text-secondary);
+}

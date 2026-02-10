@@ -1,0 +1,10 @@
+{
+  "name": "memberBanSet",
+  "version": "1.0.0",
+  "description": "Ban/unban member from signing up (admin only)",
+  "main": "index.js",
+  "dependencies": {
+    "wx-server-sdk": "latest"
+  }
+}
+

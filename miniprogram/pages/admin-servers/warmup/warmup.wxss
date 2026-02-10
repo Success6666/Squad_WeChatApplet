@@ -1,0 +1,8 @@
+.page{padding:18rpx;background:#F7FBFF;min-height:100vh}.header{ text-align:center;margin-bottom:12rpx}.title{font-size:32rpx;color:#1677FF;font-weight:600}.card{background:#fff;padding:18rpx;border-radius:10rpx}.option-row{display:flex;align-items:center;justify-content:space-between;padding:12rpx 0;border-bottom:1rpx solid #f1f5f9}.option-label{font-size:24rpx;color:#111;font-weight:600}.actions{margin-top:18rpx;text-align:center}.btn.full{width:100%;height:68rpx;font-size:22rpx;background:#1677FF !important;color:#fff !important;border:none;border-radius:8rpx}.btn.secondary{background:#fff !important;color:#374151 !important;border:1rpx solid #cbd5e1 !important}.btn.primary{background:#1677FF !important;color:#fff !important;border:none}.btn.primary:active{opacity:0.95}
+/* confirmation modal */
+.confirm-modal{position:fixed;left:50%;top:50%;transform:translate(-50%,-50%);width:86%;max-width:700rpx;background:#fff;padding:18rpx;border-radius:10rpx;z-index:1001}
+.confirm-modal .modal-title{font-size:20rpx;margin-bottom:8rpx}
+.confirm-modal .modal-body{max-height:40vh;overflow:auto}
+.cmd-row{padding:10rpx 0;border-bottom:1rpx dashed #eee;font-family:monospace}
+.modal-actions{display:flex;gap:12rpx;justify-content:flex-end;margin-top:12rpx}
+.modal-mask{position:fixed;left:0;top:0;right:0;bottom:0;background:rgba(0,0,0,0.4);z-index:1000}

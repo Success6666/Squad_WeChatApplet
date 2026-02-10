@@ -1,0 +1,51 @@
+<view class="page">
+  <view class="form">
+    <view class="field">
+      <text class="label">服务器名称</text>
+      <input class="input" placeholder="输入服务器名称" value="{{name}}" bindinput="onChangeName" />
+    </view>
+
+    <view class="field">
+      <text class="label">地址 (IP 或 域名)</text>
+      <input class="input" placeholder="例：123.123.123.123" value="{{host}}" bindinput="onChangeHost" />
+    </view>
+
+    <view class="field">
+      <text class="label">端口</text>
+      <input class="input" placeholder="端口号" value="{{port}}" bindinput="onChangePort" type="number" />
+    </view>
+
+    <view class="field">
+      <text class="label">连接类型</text>
+      <picker mode="selector" range="{{types}}" value="{{typeIndex}}" bindchange="onChangeType">
+        <view class="picker">{{types[typeIndex]}}</view>
+      </picker>
+    </view>
+
+    <view class="field">
+      <text class="label">是否仅管理员可见</text>
+      <switch checked="{{adminOnly}}" bindchange="onToggleAdminOnly" />
+    </view>
+
+    <view class="field">
+      <text class="label">认证方式</text>
+      <picker mode="selector" range="{{authMethods}}" value="{{authIndex}}" bindchange="onChangeAuth">
+        <view class="picker">{{authMethods[authIndex]}}</view>
+      </picker>
+    </view>
+
+    <view wx:if="{{showSecret}}" class="field">
+      <text class="label">密钥 / 密码</text>
+      <input class="input" placeholder="输入服务器密码（仅传至云函数）" value="{{_secretVal}}" bindinput="onChangeSecret" password="true" />
+      <view class="field sub">
+        <text class="label small">是否保存至本机（仅当前设备）</text>
+        <switch checked="{{saveLocal}}" bindchange="onToggleSaveLocal" />
+      </view>
+    </view>
+
+    <view class="actions">
+      <button class="btn" bindtap="onSave" disabled="{{saving}}">{{saving? '保存中...' : '保存'}}</button>
+      <button class="btn outline" bindtap="onCancel">取消</button>
+    </view>
+  </view>
+</view>

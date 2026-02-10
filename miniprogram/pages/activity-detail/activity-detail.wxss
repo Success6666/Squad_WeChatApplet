@@ -1,0 +1,52 @@
+.poster{
+  width: 100%;
+  height: 360rpx;
+  border-radius: 18rpx;
+  border: 1px solid rgba(0,0,0,0.06);
+  background: var(--panel-strong);
+}
+
+/* Activity Detail Modern Layout */
+.activity-detail {
+  padding-bottom: 24rpx;
+}
+
+.info {
+  display: flex;
+  flex-direction: column;
+  gap: 22rpx;
+}
+
+.info-row {
+  display: flex;
+  flex-direction: column;
+  gap: 10rpx;
+}
+
+.value {
+  font-size: 30rpx;
+  color: var(--text-main);
+  line-height: 1.6;
+}
+
+.divider {
+  height: 1px;
+  background: rgba(0,0,0,0.06);
+}
+
+.status-tip {
+  background: rgba(255, 149, 0, 0.12);
+  color: #b45309;
+  border: 1px solid rgba(255, 149, 0, 0.25);
+  border-radius: 16rpx;
+  padding: 16rpx 18rpx;
+  font-size: 26rpx;
+  line-height: 1.4;
+}
+
+.actions {
+  margin-top: 26rpx;
+  display: flex;
+  flex-direction: column;
+  gap: 16rpx;
+}

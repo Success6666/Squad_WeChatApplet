@@ -1,0 +1,20 @@
+<view class="page">
+  <view class="row search-area" style="gap: 20rpx;">
+    <input class="input" placeholder="搜索战队名称" placeholder-class="ph" value="{{keyword}}" bindinput="onKeyword" style="flex:1; margin-bottom:0;" />
+    <button class="btn btn-primary" bindtap="onSearch" style="height: 94rpx; display: flex; align-items: center;">搜索</button>
+  </view>
+
+  <view style="margin-bottom: 32rpx;">
+    <button class="btn btn-ghost" style="width: 100%; border-style: dashed;" bindtap="goCreate">+ 创建新战队</button>
+  </view>
+
+  <view wx:if="{{loading}}" class="empty">加载中...</view>
+  <view wx:elif="{{!teams.length}}" class="empty">
+    <image src="/images/empty.png" wx:if="{{false}}" /> <!-- Placeholder for illustration -->
+    <text>暂无战队，成为第一个指挥官吧</text>
+  </view>
+
+  <view class="team-list">
+    <team-card wx:for="{{teams}}" wx:key="_id" team="{{item}}" bind:tapteam="goDetail" />
+  </view>
+</view>

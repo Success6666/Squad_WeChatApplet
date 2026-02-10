@@ -1,0 +1,60 @@
+<view class="page">
+  <view class="header"><view class="title">设置与预设地图</view></view>
+  <view class="title-divider-thin"></view>
+  <view class="card">
+    <view class="row map-row">
+      <label class="map-label">选择地图</label>
+      <picker mode="selector" range="{{maps}}" range-key="map_cn" value="{{selectedMapIndex}}" bindchange="onMapChange">
+        <view class="picker map-picker">{{selectedMapText}}</view>
+      </picker>
+    </view>
+
+    <view class="row map-row">
+      <label class="map-label">选择地图模式</label>
+      <picker mode="selector" range="{{layers}}" value="{{selectedLayerIndex}}" bindchange="onLayerChange">
+        <view class="picker map-picker">{{layers[selectedLayerIndex] || '无可用地图模式'}}</view>
+      </picker>
+    </view>
+
+    <view class="row two-cols">
+      <view>
+        <label>阵营1</label>
+        <picker mode="selector" range="{{factions}}" range-key="faction_cn" value="{{selectedFaction1Index}}" bindchange="onFaction1Change">
+          <view class="picker">{{factions[selectedFaction1Index].faction_cn}}</view>
+        </picker>
+        <picker mode="selector" range="{{unit_types}}" range-key="unit_cn" value="{{selectedUnit1Index}}" bindchange="onUnit1Change">
+          <view class="picker">{{unit_types[selectedUnit1Index].unit_cn}}</view>
+        </picker>
+      </view>
+
+      <view>
+        <label>阵营2</label>
+        <picker mode="selector" range="{{factions}}" range-key="faction_cn" value="{{selectedFaction2Index}}" bindchange="onFaction2Change">
+          <view class="picker">{{factions[selectedFaction2Index].faction_cn}}</view>
+        </picker>
+        <picker mode="selector" range="{{unit_types}}" range-key="unit_cn" value="{{selectedUnit2Index}}" bindchange="onUnit2Change">
+          <view class="picker">{{unit_types[selectedUnit2Index].unit_cn}}</view>
+        </picker>
+      </view>
+    </view>
+
+    <view class="row action-btn-row">
+      <view class="action-btn-group">
+        <view class="action-btn {{actionType=='setNext'?'selected':''}}" bindtap="changeActionType" data-type="setNext">
+          预设下一局地图
+        </view>
+        <view class="action-btn {{actionType=='changeNow'?'selected':''}}" bindtap="changeActionType" data-type="changeNow">
+          立即切换当前地图
+        </view>
+      </view>
+    </view>
+
+    <view class="row">
+      <view class="command-output">{{commandPreview}}</view>
+    </view>
+
+    <view class="row send-btn-row">
+      <button class="send-btn" bindtap="sendCommandBtn">立即发送指令</button>
+    </view>
+  </view>
+</view>
